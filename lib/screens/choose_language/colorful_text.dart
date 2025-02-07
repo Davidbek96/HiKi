@@ -6,9 +6,7 @@ class ColorfulText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final logoColor = Get.isDarkMode
-        ? Colors.lightBlueAccent
-        : Color.fromARGB(255, 33, 120, 160);
+    final logoColor = Get.isDarkMode ? Colors.lightBlueAccent : Colors.blue;
     final normalColor = Get.isDarkMode ? Colors.grey : Colors.blueGrey;
     return Text.rich(
       TextSpan(

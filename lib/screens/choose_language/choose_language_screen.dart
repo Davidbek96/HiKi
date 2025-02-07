@@ -27,9 +27,10 @@ class LanguageSelectionScreen extends StatelessWidget {
                 SizedBox(height: 40),
                 Image.asset(
                   'assets/wallet.png', // Replace with your image file
-                  width: 100,
-                  height: 100,
+                  width: 80,
+                  height: 80,
                 ),
+                SizedBox(height: 10),
                 ColorfulText(),
                 SizedBox(height: 40),
                 LanguageTile(
@@ -65,7 +66,7 @@ class LanguageSelectionScreen extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(180, 50),
-                    backgroundColor: const Color.fromARGB(255, 54, 130, 165),
+                    backgroundColor: const Color.fromARGB(255, 64, 127, 216),
                     padding: EdgeInsets.symmetric(vertical: 14, horizontal: 32),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),

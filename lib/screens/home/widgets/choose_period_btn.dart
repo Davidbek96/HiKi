@@ -37,7 +37,7 @@ class ChoosePeriodButtons extends StatelessWidget {
             final isSelected = c.filterPeriod.value == keys[index];
 
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
+              padding: const EdgeInsets.symmetric(horizontal: 6.0),
               child: ElevatedButton(
                   onPressed: () {
                     // Apply the selected filter based on the button pressed
@@ -52,7 +52,7 @@ class ChoosePeriodButtons extends StatelessWidget {
                         : Theme.of(context).colorScheme.onInverseSurface,
                     foregroundColor: Theme.of(context).colorScheme.outline,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
                     minimumSize: const Size(60, 34),
                   ),

@@ -82,9 +82,10 @@ class MainScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
+                        CircleAvatar(
+                          radius: 22,
                           child: Text(
-                            '${'selected'.tr}: ${c.selectedIds.length}',
+                            '${c.selectedIds.length}',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
