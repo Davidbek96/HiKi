@@ -36,8 +36,12 @@ class UpdateCtrl extends GetxController {
 
   void showUpdateDialog({required bool forceUpdate}) {
     Get.defaultDialog(
+      titlePadding: EdgeInsetsDirectional.all(30),
       title: "update_available".tr,
-      content: Text("new_version_available".tr),
+      content: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        child: Text("new_version_available".tr),
+      ),
       barrierDismissible: !forceUpdate, // Force update if immediate is required
       actions: [
         if (!forceUpdate)
@@ -79,7 +83,8 @@ class UpdateCtrl extends GetxController {
 
   void showRestartDialog() {
     Get.defaultDialog(
-      contentPadding: EdgeInsets.all(20),
+      titlePadding: EdgeInsets.all(30),
+      contentPadding: EdgeInsets.symmetric(horizontal: 30),
       title: "warning".tr, // Translated restart message
       content: Text("restart_prompt".tr),
       actions: [
