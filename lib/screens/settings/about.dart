@@ -65,12 +65,13 @@ class AboutPage extends StatelessWidget {
                   Icon(Icons.email,
                       size: 20, color: Theme.of(context).colorScheme.onSurface),
                   const SizedBox(width: 10),
-                  Expanded(
-                    flex: 2,
+                  Flexible(
                     child: Text(
                       "dovudbek.developer@gmail.com",
                       style: Theme.of(context).textTheme.bodyMedium!,
                       overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      softWrap: false,
                     ),
                   ),
                   IconButton(
@@ -92,7 +93,7 @@ class AboutPage extends StatelessWidget {
                   Icon(Icons.privacy_tip,
                       color: Theme.of(context).colorScheme.onSurface),
                   const SizedBox(width: 10),
-                  Expanded(child: Text('Privacy Policy')),
+                  Text('Privacy Policy'),
                   IconButton(
                     onPressed: () => _launchURL(privacyPolicyUrl),
                     icon: Icon(
