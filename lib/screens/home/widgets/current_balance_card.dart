@@ -4,12 +4,13 @@ import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 
 class CurrentBalanceCard extends StatelessWidget {
-  const CurrentBalanceCard(
-      {super.key,
-      required this.totalExpenses,
-      required this.totalIncomes,
-      required this.currentBalance,
-      required this.title});
+  const CurrentBalanceCard({
+    super.key,
+    required this.totalExpenses,
+    required this.totalIncomes,
+    required this.currentBalance,
+    required this.title,
+  });
 
   final double totalExpenses;
   final double totalIncomes;
@@ -26,16 +27,18 @@ class CurrentBalanceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screnHeight =
+        MediaQuery.of(context).size.height; // Adjust dynamically
     return Container(
       width: double.infinity,
-      height: 160,
-      margin: const EdgeInsets.fromLTRB(10, 8, 10, 8),
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 15,
+      height: screnHeight / 4.5,
+      margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.03, vertical: 8),
+      padding: EdgeInsets.symmetric(
+        vertical: screenWidth * 0.03,
+        horizontal: screenWidth * 0.05,
       ),
       decoration: BoxDecoration(
-        boxShadow: [],
         borderRadius: BorderRadius.circular(30),
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -48,7 +51,6 @@ class CurrentBalanceCard extends StatelessWidget {
                 ]
               : [
                   Color.fromARGB(255, 29, 226, 247),
-
                   Color.fromARGB(255, 163, 104, 245), // Light purple
                   Colors.orange, // Orange
                 ],
@@ -60,16 +62,20 @@ class CurrentBalanceCard extends StatelessWidget {
         children: [
           Text(
             title,
+            textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.titleMedium,
           ),
-          Text(
-            formattedCurrentBalance,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.displaySmall,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              formattedCurrentBalance,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              // Income Section
               Expanded(
                 child: Row(
                   children: [
@@ -88,11 +94,12 @@ class CurrentBalanceCard extends StatelessWidget {
                             'income'.tr,
                             style: Theme.of(context).textTheme.titleSmall,
                           ),
-                          Text(
-                            formattedIncomes,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.titleMedium,
+                          FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              formattedIncomes,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
                           ),
                         ],
                       ),
@@ -100,7 +107,9 @@ class CurrentBalanceCard extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
+
+              // Expense Section
               Expanded(
                 child: Row(
                   children: [
@@ -112,11 +121,12 @@ class CurrentBalanceCard extends StatelessWidget {
                             'expense'.tr,
                             style: Theme.of(context).textTheme.titleSmall,
                           ),
-                          Text(
-                            formattedExpenses,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.titleMedium,
+                          FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              formattedExpenses,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
                           ),
                         ],
                       ),

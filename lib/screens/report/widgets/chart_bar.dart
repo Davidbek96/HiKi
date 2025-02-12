@@ -38,7 +38,8 @@ class ChartBar extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 6),
         child: FractionallySizedBox(
-          heightFactor: fill - fill / 8,
+          heightFactor:
+              fill.clamp(0.05, 1.0), // Ensures a minimum visible height
           child: DecoratedBox(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -58,12 +59,18 @@ class ChartBar extends StatelessWidget {
               children: [
                 Positioned(
                   top: -20,
-                  child: Text(
-                    bucketAmountAsString,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w500,
+                  child: SizedBox(
+                    width: 60, // Set max width
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        bucketAmountAsString,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -71,15 +78,11 @@ class ChartBar extends StatelessWidget {
                   bottom: -30,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: Column(
-                      children: [
-                        Icon(
-                          isIncome
-                              ? incomeCategoryIcons[category]
-                              : expenseCategoryIcons[category],
-                          color: gradientColors[colorIndex][0],
-                        ),
-                      ],
+                    child: Icon(
+                      isIncome
+                          ? incomeCategoryIcons[category]
+                          : expenseCategoryIcons[category],
+                      color: gradientColors[colorIndex][0],
                     ),
                   ),
                 ),

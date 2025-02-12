@@ -21,6 +21,15 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  // Enable edge-to-edge display
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    systemNavigationBarColor:
+        Colors.transparent, // Makes the bottom nav transparent
+    statusBarColor: Colors.transparent, // Makes the top status bar transparent
+    statusBarIconBrightness: Brightness.dark, // Dark icons for light background
+    systemNavigationBarIconBrightness:
+        Brightness.dark, // Dark icons for bottom nav
+  ));
 
   runApp(
     GetMaterialApp(
