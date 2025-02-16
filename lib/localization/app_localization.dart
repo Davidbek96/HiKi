@@ -61,7 +61,8 @@ class AppLocalization extends Translations {
           'loading': "Loading...",
           'delete': "Delete",
           'date_not_entered': "Date not entered",
-          'currency_unit': "\$",
+          'som': "Som",
+          'change_currency': 'Change currency',
           'remember_delete_action':
               "Remember, by performing this action, you will delete all income and expenses, and it will not be possible to recover them!!!",
           'warning': "Notification",
@@ -163,7 +164,8 @@ class AppLocalization extends Translations {
           'loading': "Yuklanmoqda...",
           'delete': "O'chirish",
           'date_not_entered': "Sana kiritilmagan",
-          'currency_unit': "So'm",
+          'som': "So'm",
+          'change_currency': "Pul birligini o'zgartirish",
           'remember_delete_action':
               "Eslatib o'tamizki, bu amalni bajarish orqali siz barcha kirim va chiqimlarni o'chirib tashlaysiz va ularni qayta tiklashni iloji yo'q !!!",
           'warning': "Ogohlantirish",
@@ -264,7 +266,8 @@ class AppLocalization extends Translations {
           'loading': "로딩 중...",
           'delete': "삭제",
           'date_not_entered': "날짜가 입력되지 않았습니다.",
-          'currency_unit': "₩",
+          'som': "숨",
+          'change_currency': "통화 변경",
           'remember_delete_action':
               "이 작업을 수행하면 모든 수입 및 지출 데이터가 삭제되며 복구할 수 없습니다!!!",
           'warning': "알림",
@@ -362,7 +365,8 @@ class AppLocalization extends Translations {
           'loading': "Загрузка...",
           'delete': "Удалить",
           'date_not_entered': "Дата не введена",
-          'currency_unit': "₽",
+          'som': "сум",
+          'change_currency': "Сменить валюту",
           'remember_delete_action':
               "Помните, что при выполнении этого действия все доходы и расходы будут удалены, и их невозможно будет восстановить!!!",
           'warning': "Уведомление",

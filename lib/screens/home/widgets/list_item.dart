@@ -1,4 +1,5 @@
 import 'package:hiki/controller/data_ctrl.dart';
+import 'package:hiki/controller/settings_ctrl.dart';
 import 'package:hiki/core/colors_const.dart';
 import 'package:hiki/data/models/cashflow_model.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 
 class TransactionItem extends StatelessWidget {
-  const TransactionItem(
+  TransactionItem(
       {required this.transaction,
       required this.index,
       required this.isSelected,
@@ -25,6 +26,8 @@ class TransactionItem extends StatelessWidget {
       return transaction.amount.toString();
     }
   }
+
+  final SettingsCtrl _settingsCtrl = Get.find();
 
   // Transaction sign based on income or expense
   String get transactionSign => transaction.isIncome ? '+ ' : '- ';
@@ -111,12 +114,12 @@ class TransactionItem extends StatelessWidget {
   Widget _buildAmountAndCurrency(BuildContext context) {
     return Expanded(
       flex: 3,
-      child: Get.locale!.languageCode != 'uz'
+      child: _settingsCtrl.currencySymbol.tr.length == 1
           ? Row(
               children: [
                 Expanded(
                   child: Text(
-                    '$transactionSign$formattedAmount ${'currency_unit'.tr}',
+                    '$transactionSign$formattedAmount ${_settingsCtrl.currencySymbol.tr}',
                     textAlign: TextAlign.end,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
@@ -140,7 +143,7 @@ class TransactionItem extends StatelessWidget {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  'currency_unit'.tr,
+                  _settingsCtrl.currencySymbol.tr,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],

@@ -14,7 +14,7 @@ extension ConvertFlag on String {
 class SettingsScreen extends StatelessWidget {
   SettingsScreen({super.key});
 
-  final DataCtrl c = Get.find();
+  final DataCtrl dataCtrl = Get.find();
   final SettingsCtrl _settingsCtrl = Get.find();
 
   @override
@@ -45,6 +45,20 @@ class SettingsScreen extends StatelessWidget {
             _showLanguageDialog(context);
           },
         ),
+
+        const Divider(indent: 15, endIndent: 15),
+
+        Obx(
+          () => ListTile(
+              leading: const Icon(Icons.currency_exchange),
+              title: Text('change_currency'.tr),
+              subtitle: Text(
+                  '${_settingsCtrl.currency.value} ( ${_settingsCtrl.currencySymbol.tr} )'),
+              onTap: () {
+                showCurrencyDialog(context);
+              }),
+        ),
+
         const Divider(indent: 15, endIndent: 15),
 
         // Delete All Data
@@ -52,7 +66,7 @@ class SettingsScreen extends StatelessWidget {
           leading: const Icon(Icons.delete_forever),
           title: Text('delete_all'.tr),
           subtitle: Text('delete_all_desc'.tr),
-          onTap: c.deleteAllCashflows,
+          onTap: dataCtrl.deleteAllCashflows,
         ),
 
         const Divider(indent: 15, endIndent: 15),
@@ -109,6 +123,64 @@ class SettingsScreen extends StatelessWidget {
                 title: const Text("Русский"),
                 onTap: () {
                   _settingsCtrl.updateLocale(Locale('ru'));
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  // Function to show currency selection dialog
+  // Function to show currency selection dialog
+  void showCurrencyDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('change_currency'.tr),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: Text('UZ'.toFlag, style: TextStyle(fontSize: 24)),
+                title: Text(
+                  "UZS - ${'som'.tr}",
+                ),
+                onTap: () {
+                  _settingsCtrl.updateCurrency('UZS');
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Text('US'.toFlag, style: TextStyle(fontSize: 24)),
+                title: const Text(
+                  "USD - \$",
+                ),
+                onTap: () {
+                  _settingsCtrl.updateCurrency('USD');
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Text('KR'.toFlag, style: TextStyle(fontSize: 24)),
+                title: const Text(
+                  "KRW - ₩",
+                ),
+                onTap: () {
+                  _settingsCtrl.updateCurrency('KRW');
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Text('RU'.toFlag, style: TextStyle(fontSize: 24)),
+                title: const Text(
+                  "RUB - ₽",
+                ),
+                onTap: () {
+                  _settingsCtrl.updateCurrency('RUB');
                   Navigator.pop(context);
                 },
               ),

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:hiki/controller/input_ctrl.dart';
 import 'package:get/get.dart';
+import 'package:hiki/controller/settings_ctrl.dart';
 import 'package:hiki/core/colors_const.dart';
 import 'package:hiki/data/models/cashflow_model.dart';
 import 'package:intl/intl.dart';
@@ -11,13 +12,16 @@ class TitleDateInput extends StatelessWidget {
   TitleDateInput({super.key});
 
   final InputCtrl ctr = Get.find();
+  final SettingsCtrl _settingsCtrl = Get.find();
   final NumberFormat numberFormatter = NumberFormat('#,###');
 
   @override
   Widget build(BuildContext context) {
-    final isUzbek = Get.locale!.languageCode == 'uz';
+    final currencySymbol = _settingsCtrl.currencySymbol;
+    final isShort = currencySymbol.length == 1;
+
     log('isUzbek ==> ${Get.locale!.languageCode}');
-    log('isUzbek ==> $isUzbek');
+    log('isShort ==> $isShort');
     return Obx(
       () => Column(
         children: [
@@ -86,8 +90,8 @@ class TitleDateInput extends StatelessWidget {
                   },
                   decoration: InputDecoration(
                     labelText: 'amount'.tr,
-                    suffixText: isUzbek ? " so'm" : null,
-                    prefixText: isUzbek ? null : "${'currency_unit'.tr} ",
+                    prefixText: isShort ? currencySymbol.tr : null,
+                    suffixText: isShort ? null : currencySymbol.tr,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
