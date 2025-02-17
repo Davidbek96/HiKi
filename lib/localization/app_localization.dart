@@ -105,6 +105,8 @@ class AppLocalization extends Translations {
           "update_now": "Update Now",
           "restart_prompt":
               "The app needs to restart for the update to take effect.",
+          "currency_change_note":
+              "NOTE: The new currency will apply to all past transactions as well.",
         },
         'uz': {
           'home': "Asosiy",
@@ -209,6 +211,8 @@ class AppLocalization extends Translations {
           "update_now": "Hozir yangilash",
           "restart_prompt":
               "Yangilanishni qo'llash uchun ilova qayta ishga tushirilishi kerak.",
+          "currency_change_note":
+              "ESLATMA: Yangi valyuta barcha oldingi tranzaksiyalarga ham tatbiq etiladi.",
         },
         'kr': {
           'home': "홈",
@@ -307,6 +311,7 @@ class AppLocalization extends Translations {
           "later": "나중에",
           "update_now": "지금 업데이트",
           "restart_prompt": "업데이트를 적용하려면 앱을 재시작해야 합니다.",
+          "currency_change_note": "참고: 새로운 통화가 이전 모든 거래에도 적용됩니다.",
         },
         'ru': {
           'home': "Главная",
@@ -409,6 +414,8 @@ class AppLocalization extends Translations {
           "update_now": "Обновить сейчас",
           "restart_prompt":
               "Для применения обновления необходимо перезапустить приложение.",
+          "currency_change_note":
+              "ПРИМЕЧАНИЕ: Новая валюта также будет применяться ко всем прошлым транзакциям.",
         },
       };
 }

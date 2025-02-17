@@ -144,6 +144,15 @@ class SettingsScreen extends StatelessWidget {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              Text(
+                "currency_change_note".tr,
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Theme.of(context).hintColor,
+                ),
+              ),
+              SizedBox(height: 8),
               ListTile(
                 leading: Text('UZ'.toFlag, style: TextStyle(fontSize: 24)),
                 title: Text(
