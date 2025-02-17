@@ -40,7 +40,7 @@ void main() async {
       translations: AppLocalization(),
       locale: ctrl.currentLocale.value,
       fallbackLocale: const Locale('en'),
-      home: ctrl.isFirstTime ? LanguageSelectionScreen() : HomeNavigation(),
+      home: !ctrl.isFirstTime ? LanguageSelectionScreen() : HomeNavigation(),
     ),
   );
 }

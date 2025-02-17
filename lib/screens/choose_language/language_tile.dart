@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:hiki/controller/settings_ctrl.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,12 +8,15 @@ class LanguageTile extends StatelessWidget {
   final String language;
   final Locale locale;
   final String flag;
+  final String currency;
 
-  LanguageTile(
-      {super.key,
-      required this.language,
-      required this.locale,
-      required this.flag});
+  LanguageTile({
+    super.key,
+    required this.language,
+    required this.locale,
+    required this.flag,
+    required this.currency,
+  });
 
   final SettingsCtrl settingsCtrl = Get.find();
 
@@ -21,6 +26,7 @@ class LanguageTile extends StatelessWidget {
       () => GestureDetector(
         onTap: () {
           settingsCtrl.updateLocale(locale);
+          settingsCtrl.updateCurrency(currency);
         },
         child: Container(
           width: 300,

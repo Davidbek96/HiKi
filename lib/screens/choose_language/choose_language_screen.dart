@@ -37,24 +37,28 @@ class LanguageSelectionScreen extends StatelessWidget {
                   language: "O'zbekcha",
                   locale: Locale('uz'),
                   flag: "UZ".toFlag,
+                  currency: 'UZS',
                 ),
                 SizedBox(height: 10),
                 LanguageTile(
                   language: "English",
                   locale: Locale('en'),
                   flag: "US".toFlag,
+                  currency: 'USD',
                 ),
                 SizedBox(height: 10),
                 LanguageTile(
                   language: "한국어",
                   locale: Locale('kr'),
                   flag: "KR".toFlag,
+                  currency: 'KRW',
                 ),
                 SizedBox(height: 10),
                 LanguageTile(
                   language: "Русский",
                   locale: Locale('ru'),
                   flag: "RU".toFlag,
+                  currency: 'RUB',
                 ),
                 SizedBox(height: 60),
                 // Pushes the button to the bottom
