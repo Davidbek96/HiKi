@@ -29,57 +29,65 @@ class ChoosePeriodButtons extends StatelessWidget {
     // Getting screen width to make the design responsive
     double screenWidth = MediaQuery.of(context).size.width;
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: screenWidth * 0.05), // Dynamic horizontal padding
-        child: Row(
-          children: values.asMap().entries.map(
-            (entry) {
-              final index = entry.key;
-              final label = entry.value;
-              final isSelected = c.filterPeriod.value == keys[index];
+    return Row(
+      children: [
+        Expanded(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.05), // Dynamic horizontal padding
+              child: Row(
+                children: values.asMap().entries.map(
+                  (entry) {
+                    final index = entry.key;
+                    final label = entry.value;
+                    final isSelected = c.filterPeriod.value == keys[index];
 
-              return Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth * 0.02), // Dynamic button spacing
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Apply the selected filter based on the button pressed
-                    c.applyFilters(keys[index], c.filterType.value);
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal:
+                              screenWidth * 0.02), // Dynamic button spacing
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Apply the selected filter based on the button pressed
+                          c.applyFilters(keys[index], c.filterType.value);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.all(0.0),
+                          elevation: isSelected ? 2 : 1,
+                          shadowColor: kColorScheme.surfaceDim,
+                          backgroundColor: isSelected
+                              ? Colors.blueGrey.shade400
+                              : Theme.of(context).colorScheme.onInverseSurface,
+                          foregroundColor:
+                              Theme.of(context).colorScheme.outline,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          minimumSize: Size(screenWidth * 0.15,
+                              34), // Dynamic minimum size based on screen width
+                        ),
+                        child: Text(
+                          label,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: isSelected
+                                ? Get.isDarkMode
+                                    ? Colors.black87
+                                    : Theme.of(context).colorScheme.onPrimary
+                                : null,
+                          ),
+                        ).marginSymmetric(horizontal: 12),
+                      ),
+                    );
                   },
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.all(0.0),
-                    elevation: isSelected ? 2 : 1,
-                    shadowColor: kColorScheme.surfaceDim,
-                    backgroundColor: isSelected
-                        ? Colors.blueGrey.shade400
-                        : Theme.of(context).colorScheme.onInverseSurface,
-                    foregroundColor: Theme.of(context).colorScheme.outline,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    minimumSize: Size(screenWidth * 0.15,
-                        34), // Dynamic minimum size based on screen width
-                  ),
-                  child: Text(
-                    label,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: isSelected
-                          ? Get.isDarkMode
-                              ? Colors.black87
-                              : Theme.of(context).colorScheme.onPrimary
-                          : null,
-                    ),
-                  ).marginSymmetric(horizontal: 12),
-                ),
-              );
-            },
-          ).toList(),
+                ).toList(),
+              ),
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 }

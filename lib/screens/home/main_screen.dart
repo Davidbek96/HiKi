@@ -22,13 +22,8 @@ class MainScreen extends StatelessWidget {
           children: [
             Column(
               children: [
-                const SizedBox(height: 8),
                 // Smooth toggle switch for filters
-                Row(
-                  children: [
-                    Expanded(child: ChoosePeriodButtons(c: c)),
-                  ],
-                ),
+                ChoosePeriodButtons(c: c),
                 // Current balance card
                 CurrentBalanceCard(
                   totalExpenses: c.totalExpenses.value,
