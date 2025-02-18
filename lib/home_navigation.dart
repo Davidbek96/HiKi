@@ -68,7 +68,7 @@ class HomeNavigation extends StatelessWidget {
             _navigationBarIndex.value = index;
             if (index != 0) {
               //when going to another page setting back to overall filter
-              //c.filterPeriod.value = 'Overall';
+              c.filterPeriod.value = 'Overall';
               c.cancelSelection();
             }
           },
