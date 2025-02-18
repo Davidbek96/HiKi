@@ -18,91 +18,74 @@ class ListeviewCashflows extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ShaderMask(
-        shaderCallback: (Rect rect) {
-          return LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              kColorScheme.surface,
-              Colors.transparent,
-              Colors.transparent,
-              kColorScheme.surface,
-            ],
-            stops: const [0.0, 0.01, 1.0, 1.0],
-          ).createShader(rect);
-        },
-        blendMode: BlendMode.dstOut,
-        child: ListView.builder(
-          itemCount: transactions.length,
-          itemBuilder: (ctx, index) {
-            final cashflow = transactions[index];
-            final isSelected = c.selectedIds.contains(cashflow.id);
+      child: ListView.builder(
+        itemCount: transactions.length,
+        itemBuilder: (ctx, index) {
+          final cashflow = transactions[index];
+          final isSelected = c.selectedIds.contains(cashflow.id);
 
-            if (c.isSelectionMode.value) {
-              // Selection mode (Disable swipe-to-delete)
-              return GestureDetector(
-                  onLongPress: () => c.toggleSelection(cashflow.id),
-                  onTap: () => c.toggleSelection(cashflow.id),
-                  child: TransactionItem(
-                    transaction: cashflow,
-                    index: index,
-                    isSelected: isSelected,
-                    c: c,
-                  ));
-            } else {
-              // Normal mode (Enable swipe-to-delete)
-              return Dismissible(
-                key: ValueKey(cashflow),
-                background: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Card(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .error
-                        .withValues(alpha: 0.75),
-                    margin: EdgeInsets.symmetric(
-                      horizontal:
-                          Theme.of(context).cardTheme.margin!.horizontal,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          'delete'.tr,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                            color: Theme.of(context).colorScheme.onError,
-                          ),
-                        ),
-                        const SizedBox(width: 5),
-                        Icon(
-                          Icons.delete,
+          if (c.isSelectionMode.value) {
+            // Selection mode (Disable swipe-to-delete)
+            return GestureDetector(
+                onLongPress: () => c.toggleSelection(cashflow.id),
+                onTap: () => c.toggleSelection(cashflow.id),
+                child: TransactionItem(
+                  transaction: cashflow,
+                  index: index,
+                  isSelected: isSelected,
+                  c: c,
+                ));
+          } else {
+            // Normal mode (Enable swipe-to-delete)
+            return Dismissible(
+              key: ValueKey(cashflow),
+              background: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Card(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .error
+                      .withValues(alpha: 0.75),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: Theme.of(context).cardTheme.margin!.horizontal,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'delete'.tr,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
                           color: Theme.of(context).colorScheme.onError,
                         ),
-                        const SizedBox(width: 15),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(width: 5),
+                      Icon(
+                        Icons.delete,
+                        color: Theme.of(context).colorScheme.onError,
+                      ),
+                      const SizedBox(width: 15),
+                    ],
                   ),
                 ),
-                direction: DismissDirection.endToStart,
-                onDismissed: (direction) {
-                  c.deleteCashflow(cashflow);
-                },
-                child: GestureDetector(
-                  onLongPress: () => c.toggleSelection(cashflow.id),
-                  child: TransactionItem(
-                    transaction: cashflow,
-                    index: index,
-                    isSelected: isSelected,
-                    c: c,
-                  ),
+              ),
+              direction: DismissDirection.endToStart,
+              onDismissed: (direction) {
+                c.deleteCashflow(cashflow);
+              },
+              child: GestureDetector(
+                onLongPress: () => c.toggleSelection(cashflow.id),
+                child: TransactionItem(
+                  transaction: cashflow,
+                  index: index,
+                  isSelected: isSelected,
+                  c: c,
                 ),
-              );
-            }
-          },
-        ),
+              ),
+            );
+          }
+        },
       ),
     );
   }
