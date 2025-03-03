@@ -2,8 +2,8 @@ import 'package:hiki/controller/data_ctrl.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hiki/home_navigation.dart';
-import 'package:hiki/screens/choose_language/colorful_text.dart';
-import 'package:hiki/screens/choose_language/language_tile.dart';
+import 'package:hiki/screens/onboarding_language/colorful_text.dart';
+import 'package:hiki/screens/onboarding_language/language_tile.dart';
 
 extension ConvertFlag on String {
   String get toFlag {
@@ -12,8 +12,8 @@ extension ConvertFlag on String {
   }
 }
 
-class LanguageSelectionScreen extends StatelessWidget {
-  LanguageSelectionScreen({super.key});
+class OnboardingLanguageSecreen extends StatelessWidget {
+  OnboardingLanguageSecreen({super.key});
   final dataCtrl = Get.put(DataCtrl());
   @override
   Widget build(BuildContext context) {

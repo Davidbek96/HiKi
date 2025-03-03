@@ -42,13 +42,11 @@ class DataCtrl extends GetxController {
 
   /// **Fetch all cashflows from the database**
   Future<void> fetchCashflows() async {
-    log('Before fetching cashflows: $cashflows ');
     isLoading.value = true;
     final data = await _dbHelper.fetchCashflows();
     cashflows.assignAll(data);
     updateIncomeExpenseAmount(cashflows);
     isLoading.value = false;
-    log('After fetching cashflows: $cashflows ');
   }
 
   /// **Update total income, expenses, and balance**

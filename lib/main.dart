@@ -4,7 +4,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hiki/home_navigation.dart';
-import 'package:hiki/screens/choose_language/choose_language_screen.dart';
+import 'package:hiki/screens/onboarding_language/onboarding_language.dart';
 import 'controller/settings_ctrl.dart';
 import 'core/themes.dart';
 import 'localization/app_localization.dart';
@@ -40,7 +40,7 @@ void main() async {
       translations: AppLocalization(),
       locale: ctrl.currentLocale.value,
       fallbackLocale: const Locale('en'),
-      home: ctrl.isFirstTime ? LanguageSelectionScreen() : HomeNavigation(),
+      home: ctrl.isFirstTime ? OnboardingLanguageSecreen() : HomeNavigation(),
     ),
   );
 }
