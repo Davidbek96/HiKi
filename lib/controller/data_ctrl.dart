@@ -274,26 +274,25 @@ class DataCtrl extends GetxController {
     isSelectionMode.value = selectedIds.isNotEmpty;
   }
 
-  void cancelSelection() {
+  void clearSelections() {
     selectedIds.clear();
     isSelectionMode.value = false;
   }
 
   void deleteSelectedCashflows() async {
+    if (selectedIds.isEmpty) return;
     Get.closeCurrentSnackbar();
 
     // Store removed items for undo
     final removedCashflows =
         cashflows.where((c) => selectedIds.contains(c.id)).toList();
 
-    for (var id in selectedIds) {
-      await _dbHelper.deleteCashflow(id);
-      cashflows.removeWhere((item) => item.id == id);
-    }
+    await _dbHelper.deleteBatchCashflows(selectedIds);
+    cashflows.removeWhere((c) => selectedIds.contains(c.id));
 
     updateIncomeExpenseAmount(cashflows);
     update();
-    cancelSelection();
+    clearSelections();
 
     showUndoSnackbar(
       onUndoPressed: () async {

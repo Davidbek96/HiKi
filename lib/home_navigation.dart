@@ -36,7 +36,7 @@ class HomeNavigation extends StatelessWidget {
             : FloatingActionButton(
                 onPressed: () async {
                   await Get.to(() => AddCashflowScreen());
-                  c.cancelSelection();
+                  c.clearSelections();
                   _navigationBarIndex.value = 0;
                   c.filterPeriod.value =
                       'Overall'; // Reset to home when returning
@@ -70,7 +70,7 @@ class HomeNavigation extends StatelessWidget {
             if (index != 0) {
               //when going to another page setting back to overall filter
               c.filterPeriod.value = 'Overall';
-              c.cancelSelection();
+              c.clearSelections();
             }
           },
           items: [

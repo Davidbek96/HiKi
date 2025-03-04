@@ -90,7 +90,7 @@ class MainScreen extends StatelessWidget {
                       Row(
                         children: [
                           TextButton(
-                            onPressed: () => c.cancelSelection(),
+                            onPressed: () => c.clearSelections(),
                             child: Text('cancel'.tr),
                           ),
                           SizedBox(width: 5),

@@ -90,6 +90,20 @@ class DatabaseHelper {
     return await db.delete('cashflows', where: 'id = ?', whereArgs: [id]);
   }
 
+  // Deletes multiple cashflow records based on their IDs.
+  Future<void> deleteBatchCashflows(List<String> ids) async {
+    if (ids.isEmpty) return; // No need to process an empty list
+
+    final db = await DatabaseHelper.db();
+    final batch = db.batch(); // Start batch process
+
+    for (var id in ids) {
+      batch.delete('cashflows', where: 'id = ?', whereArgs: [id]);
+    }
+    await batch.commit(noResult: true); // Execute batch delete
+    log('Deleted ${ids.length} cashflows in batch');
+  }
+
   // Deletes all cashflow records from the database.
   Future<int> deleteAllCashflows() async {
     final db = await DatabaseHelper.db();
