@@ -66,6 +66,24 @@ class DatabaseHelper {
         conflictAlgorithm: sql.ConflictAlgorithm.replace);
   }
 
+  //Inserting batchcashflows - Used to insert default data when user uses first time
+  Future<void> insertBatchCashflows(List<CashFlow> cashflows) async {
+    if (cashflows.isEmpty) return; // No need to process an empty list
+
+    final db = await DatabaseHelper.db();
+    final batch = db.batch(); // Start batch process
+
+    for (var cashflow in cashflows) {
+      batch.insert(
+        'cashflows',
+        cashflow.toMap(),
+        conflictAlgorithm: sql.ConflictAlgorithm.replace,
+      );
+    }
+    await batch.commit(noResult: true); // Execute batch insert
+    log('Inserted ${cashflows.length} cashflows in batch');
+  }
+
   // Deletes a specific cashflow record based on its ID.
   Future<int> deleteCashflow(String id) async {
     final db = await DatabaseHelper.db();
@@ -80,7 +98,6 @@ class DatabaseHelper {
 
   // Updates an existing cashflow record identified by its ID.
   // Allows changes to details like title, amount, date, category, or income status.
-  // TODO - updateCashflow function is not used yet
   Future<int> updateCashflow(String id, CashFlow cashflow) async {
     log('Cashflow.id while updating in database  : ${cashflow.id}');
     log('String id while updating in database  : $id');

@@ -31,11 +31,11 @@ class DataCtrl extends GetxController {
   /// **Insert default expenses into the database (only once)**
   Future<void> loadFirstTimeData() async {
     isLoading.value = true;
-    dev.log('Data inserting database started');
-    for (var expense in defaultCashFlows) {
-      await _dbHelper.insertCashflow(expense);
-      dev.log('Data inserted');
-    }
+    dev.log('Data inserting into database started');
+
+    await _dbHelper.insertBatchCashflows(defaultCashFlows);
+
+    dev.log('Data inserted');
     await fetchCashflows();
     box.write('first_time', false);
     isLoading.value = false;
@@ -110,92 +110,49 @@ class DataCtrl extends GetxController {
     update();
   }
 
-  /// **Insert a new cashflow**
-  void insertCashflow({
+  /// **Insert or Update a cashflow**
+  Future<void> saveCashflow({
+    String? id,
     required String title,
     required String amount,
-    required DateTime chosenDate,
-    required Category? chosenCategory,
+    required DateTime date,
+    required Category? category,
     required bool isIncome,
   }) async {
-    final enteredAmount = double.tryParse(amount);
-    final isAmountInvalid = enteredAmount == null || enteredAmount <= 0;
-
-    if (title.trim().isEmpty || isAmountInvalid || chosenCategory == null) {
+    final parsedAmount = double.tryParse(amount);
+    if (title.trim().isEmpty ||
+        parsedAmount == null ||
+        parsedAmount <= 0 ||
+        category == null) {
       Get.defaultDialog(
         title: 'warning'.tr,
         middleText: 'please_enter_valid'.tr,
-        confirm: TextButton(
-          onPressed: () => Get.back(),
-          child: Text('confirm'.tr),
-        ),
+        confirm: TextButton(onPressed: Get.back, child: Text('confirm'.tr)),
       );
       return;
     }
 
     final newCashflow = CashFlow(
-      title: title,
-      amount: enteredAmount,
-      date: chosenDate,
-      category: chosenCategory,
-      isIncome: isIncome,
-    );
-
-    cashflows.add(newCashflow);
-    cashflows.sort((a, b) => b.date.compareTo(a.date));
-
-    updateIncomeExpenseAmount(cashflows);
-    update();
-
-    await _dbHelper.insertCashflow(newCashflow);
-    Get.back();
-  }
-
-  /// Edit an existing cashflow
-  Future<void> editCashflow({
-    required String id,
-    required String title,
-    required String amount,
-    required DateTime chosenDate,
-    required Category? chosenCategory,
-    required bool isIncome,
-  }) async {
-    final enteredAmount = double.tryParse(amount);
-    final isAmountInvalid = enteredAmount == null || enteredAmount <= 0;
-    dev.log(
-        "Inside editCashflow:\n $title, $enteredAmount, $chosenDate, $chosenCategory, $isIncome#");
-
-    if (title.trim().isEmpty || isAmountInvalid || chosenCategory == null) {
-      Get.defaultDialog(
-        title: 'warning'.tr,
-        middleText: 'please_enter_valid'.tr,
-        confirm:
-            TextButton(onPressed: () => Get.back(), child: Text('confirm'.tr)),
-      );
-      return;
-    }
-
-    final updatedCashflow = CashFlow(
       id: id,
       title: title,
-      amount: enteredAmount,
-      date: chosenDate,
-      category: chosenCategory,
+      amount: parsedAmount,
+      date: date,
+      category: category,
       isIncome: isIncome,
     );
-    
-   
-      //Todo -remove
-      dev.log("cashflow id when inserting: $id type: ${id.runtimeType}");
-      await _dbHelper.updateCashflow(id, updatedCashflow);
-      int index = cashflows.indexWhere((c) => c.id == id).toInt();
 
-      cashflows[index] = updatedCashflow;
-      cashflows.sort((a, b) => b.date.compareTo(a.date));
-      updateIncomeExpenseAmount(cashflows);
-      update();
-    
+    if (id == null) {
+      await _dbHelper.insertCashflow(newCashflow);
+      cashflows.add(newCashflow);
+    } else {
+      await _dbHelper.updateCashflow(id, newCashflow);
+      final index = cashflows.indexWhere((c) => c.id == id);
+      if (index != -1) cashflows[index] = newCashflow;
+    }
 
+    cashflows.sort((a, b) => b.date.compareTo(a.date));
+    updateIncomeExpenseAmount(cashflows);
+    update();
     Get.back();
   }
 

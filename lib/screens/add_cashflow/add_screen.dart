@@ -17,26 +17,14 @@ class AddCashflowScreen extends StatelessWidget {
   final InputCtrl inputCtrl = Get.put(InputCtrl()); // Pass `cashflow`
 
   void _submitCashflow() {
-    if (cashflow != null) {
-      log("amount <====> ${inputCtrl.savedAmountWithoutCommas.value}");
-      dataCtrl.editCashflow(
-        id: cashflow!.id,
-        title: inputCtrl.titleController.text,
-        amount: inputCtrl.savedAmountWithoutCommas.value,
-        chosenDate: inputCtrl.selectedDate.value!,
-        chosenCategory: inputCtrl.selectedCategory.value,
-        isIncome: inputCtrl.categoryToggleIndex.value == 0,
-      );
-    } else {
-      dataCtrl.insertCashflow(
-        title: inputCtrl.titleController.text,
-        amount: inputCtrl.savedAmountWithoutCommas.value,
-        chosenDate: inputCtrl.selectedDate.value!,
-        chosenCategory: inputCtrl.selectedCategory.value,
-        isIncome: inputCtrl.categoryToggleIndex.value == 0,
-      );
-    }
-    log("_submitCashflow function done");
+    dataCtrl.saveCashflow(
+      id: cashflow?.id,
+      title: inputCtrl.titleController.text,
+      amount: inputCtrl.savedAmountWithoutCommas.value,
+      date: inputCtrl.selectedDate.value!,
+      category: inputCtrl.selectedCategory.value,
+      isIncome: inputCtrl.categoryToggleIndex.value == 0,
+    );
   }
 
   @override

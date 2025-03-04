@@ -61,7 +61,7 @@ const incomeCategoryIcons = {
   IncomeCategory.business: Icons.business_center,
   IncomeCategory.trade: Icons.savings,
   IncomeCategory.reward: Icons.emoji_events,
-  IncomeCategory.others: Icons.more_horiz,
+  IncomeCategory.others: Icons.category,
 };
 
 // Transaction class can now handle both types of categories (Expense and Income)
