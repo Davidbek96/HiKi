@@ -52,5 +52,16 @@ var kExpenseGradientColors = [
   [const Color(0xFFBDBDBD), const Color(0xFF757575)], // Grey gradient
 ];
 
+var kGradientLight = [
+  Color.fromARGB(255, 29, 226, 247),
+  Color.fromARGB(255, 163, 104, 245), // Light purple
+  Colors.orange, // Orange
+];
+var kGradientDark = [
+  Color.fromARGB(200, 0, 37, 43),
+  Color.fromARGB(200, 3, 50, 58),
+  Color.fromARGB(200, 0, 37, 43),
+];
+
 Color kIncomeColor = Colors.green.shade700;
 Color kExpenseColor = Colors.red;

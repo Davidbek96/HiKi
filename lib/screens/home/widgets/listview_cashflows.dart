@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hiki/controller/data_ctrl.dart';
 import 'package:hiki/data/models/cashflow_model.dart';
 import 'package:hiki/screens/home/widgets/list_item.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class ListeviewCashflows extends StatelessWidget {
   const ListeviewCashflows({
@@ -17,15 +18,15 @@ class ListeviewCashflows extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ListView.builder(
-        itemCount: transactions.length,
-        itemBuilder: (ctx, index) {
-          final cashflow = transactions[index];
-          final isSelected = c.selectedIds.contains(cashflow.id);
+      child: SlidableAutoCloseBehavior(
+        child: ListView.builder(
+          itemCount: transactions.length,
+          itemBuilder: (ctx, index) {
+            final cashflow = transactions[index];
+            final isSelected = c.selectedIds.contains(cashflow.id);
 
-          if (c.isSelectionMode.value) {
-            // Selection mode (Disable swipe-to-delete)
-            return GestureDetector(
+            if (c.isSelectionMode.value) {
+              return GestureDetector(
                 onLongPress: () => c.toggleSelection(cashflow.id),
                 onTap: () => c.toggleSelection(cashflow.id),
                 child: TransactionItem(
@@ -33,58 +34,85 @@ class ListeviewCashflows extends StatelessWidget {
                   index: index,
                   isSelected: isSelected,
                   c: c,
-                ));
-          } else {
-            // Normal mode (Enable swipe-to-delete)
-            return Dismissible(
-              key: ValueKey(cashflow),
-              background: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Card(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .error
-                      .withValues(alpha: 0.75),
-                  margin: EdgeInsets.symmetric(
-                    horizontal: Theme.of(context).cardTheme.margin!.horizontal,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                ),
+              );
+            } else {
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                child: Slidable(
+                  key: ValueKey(cashflow.id),
+
+                  // Allow only right-to-left swipe
+                  startActionPane: null,
+                  endActionPane: ActionPane(
+                    motion: const DrawerMotion(), // Smooth sliding motion
+                    extentRatio: 0.6, // Takes half of the item width
                     children: [
-                      Text(
-                        'delete'.tr,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                          color: Theme.of(context).colorScheme.onError,
+                      // Edit Button
+                      SlidableAction(
+                        onPressed: (context) {
+                          //Todo - edit option
+                          //c.editCashflow(cashflow);
+                        },
+                        backgroundColor: Colors.blue.shade300,
+                        foregroundColor: Colors.white,
+                        icon: Icons.edit,
+                        label: 'edit'.tr,
+                      ),
+
+                      // Delete Button
+                      SlidableAction(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(8),
+                          bottomRight: Radius.circular(8),
                         ),
+                        onPressed: (context) async {
+                          final bool confirm = await showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text('confirm_delete'.tr),
+                              content: Text('delete_message'.tr),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(false),
+                                  child: Text('cancel'.tr),
+                                ),
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(true),
+                                  child: Text('delete'.tr),
+                                ),
+                              ],
+                            ),
+                          );
+
+                          if (confirm) {
+                            c.deleteCashflow(cashflow);
+                          }
+                        },
+                        backgroundColor: const Color.fromARGB(255, 215, 91, 89),
+                        foregroundColor: Colors.white,
+                        icon: Icons.delete,
+                        label: 'delete'.tr,
                       ),
-                      const SizedBox(width: 5),
-                      Icon(
-                        Icons.delete,
-                        color: Theme.of(context).colorScheme.onError,
-                      ),
-                      const SizedBox(width: 15),
                     ],
                   ),
+
+                  child: GestureDetector(
+                    onLongPress: () => c.toggleSelection(cashflow.id),
+                    child: TransactionItem(
+                      transaction: cashflow,
+                      index: index,
+                      isSelected: isSelected,
+                      c: c,
+                    ),
+                  ),
                 ),
-              ),
-              direction: DismissDirection.endToStart,
-              onDismissed: (direction) {
-                c.deleteCashflow(cashflow);
-              },
-              child: GestureDetector(
-                onLongPress: () => c.toggleSelection(cashflow.id),
-                child: TransactionItem(
-                  transaction: cashflow,
-                  index: index,
-                  isSelected: isSelected,
-                  c: c,
-                ),
-              ),
-            );
-          }
-        },
+              );
+            }
+          },
+        ),
       ),
     );
   }

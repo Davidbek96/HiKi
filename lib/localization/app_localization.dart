@@ -107,6 +107,11 @@ class AppLocalization extends Translations {
               "The app needs to restart for the update to take effect.",
           "currency_change_note":
               "NOTE: The new currency will apply to all past transactions as well.",
+          'confirm_delete': "Confirm Delete",
+          'delete_message': "Are you sure you want to delete this item?",
+          'edit': 'Edit',
+          'error': 'Error',
+          'please_enter_number_above': 'Please enter a number above',
         },
         'uz': {
           'home': "Asosiy",
@@ -213,6 +218,11 @@ class AppLocalization extends Translations {
               "Yangilanishni qo'llash uchun ilova qayta ishga tushirilishi kerak.",
           "currency_change_note":
               "ESLATMA: Yangi valyuta barcha oldingi tranzaksiyalarga ham tatbiq etiladi.",
+          'confirm_delete': "O‘chirishni tasdiqlang",
+          'delete_message': "Bu elementni o‘chirishga ishonchingiz komilmi?",
+          'edit': 'Tahrirlash',
+          'error': 'Xatolik',
+          'please_enter_number_above': 'Yuqoridagi raqamni kiriting',
         },
         'kr': {
           'home': "홈",
@@ -312,6 +322,11 @@ class AppLocalization extends Translations {
           "update_now": "지금 업데이트",
           "restart_prompt": "업데이트를 적용하려면 앱을 재시작해야 합니다.",
           "currency_change_note": "참고: 새로운 통화가 이전 모든 거래에도 적용됩니다.",
+          'confirm_delete': "삭제 확인",
+          'delete_message': "이 항목을 삭제하시겠습니까?",
+          'edit': '편집',
+          'error': '오류',
+          'please_enter_number_above': '위의 숫자를 입력하세요',
         },
         'ru': {
           'home': "Главная",
@@ -416,6 +431,11 @@ class AppLocalization extends Translations {
               "Для применения обновления необходимо перезапустить приложение.",
           "currency_change_note":
               "ПРИМЕЧАНИЕ: Новая валюта также будет применяться ко всем прошлым транзакциям.",
+          'confirm_delete': "Подтвердить удаление",
+          'delete_message': "Вы уверены, что хотите удалить этот элемент?",
+          'edit': 'Редактировать',
+          'error': 'Ошибка',
+          'please_enter_number_above': 'Введите число выше',
         },
       };
 }

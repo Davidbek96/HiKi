@@ -44,16 +44,8 @@ class CurrentBalanceCard extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: Theme.of(context).brightness == Brightness.dark
-              ? [
-                  Color.fromARGB(200, 0, 37, 43),
-                  Color.fromARGB(200, 3, 50, 58),
-                  Color.fromARGB(200, 0, 37, 43),
-                ]
-              : [
-                  Color.fromARGB(255, 29, 226, 247),
-                  Color.fromARGB(255, 163, 104, 245), // Light purple
-                  Colors.orange, // Orange
-                ],
+              ? kGradientDark
+              : kGradientLight,
         ),
       ),
       child: Column(

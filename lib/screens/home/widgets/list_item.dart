@@ -51,7 +51,8 @@ class TransactionItem extends StatelessWidget {
       color: isSelected & c.isSelectionMode.value
           ? Theme.of(context).colorScheme.error.withAlpha(50)
           : null,
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+      margin: EdgeInsets.symmetric(
+          horizontal: 0, vertical: 0), //removing default margin of card
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 12.0),
         child: Row(

@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'dart:developer' as dev;
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hiki/data/services/database_helper.dart';
 import 'package:get/get.dart';
@@ -7,6 +7,7 @@ import 'package:hiki/data/models/cashflow_model.dart';
 import 'package:flutter/material.dart';
 import '../helpers/custom_snackbars.dart';
 import '../core/default_list_cashflows.dart';
+import 'dart:math';
 
 class DataCtrl extends GetxController {
   final cashflows = <CashFlow>[].obs;
@@ -30,10 +31,10 @@ class DataCtrl extends GetxController {
   /// **Insert default expenses into the database (only once)**
   Future<void> loadFirstTimeData() async {
     isLoading.value = true;
-    log('Data inserting database started');
+    dev.log('Data inserting database started');
     for (var expense in defaultCashFlows) {
       await _dbHelper.insertCashflow(expense);
-      log('Data inserted');
+      dev.log('Data inserted');
     }
     await fetchCashflows();
     box.write('first_time', false);
@@ -175,17 +176,55 @@ class DataCtrl extends GetxController {
   void deleteAllCashflows() async {
     Get.closeCurrentSnackbar();
 
+    // Generate a random 6-digit number for confirmation
+    String confirmationNumber = _generateRandomNumber();
+
+    // Create a text editing controller to capture user input
+    TextEditingController confirmationController = TextEditingController();
+
     final confirm = await Get.dialog<bool>(
       AlertDialog(
         title: Text("deleting_all".tr),
-        content: Text('remember_delete_action'.tr),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('remember_delete_action'.tr),
+            SizedBox(height: 10),
+            Text(
+              confirmationNumber,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w400,
+              ), // Show the number to the user
+            ),
+            SizedBox(height: 10),
+            TextField(
+              controller: confirmationController,
+              decoration: InputDecoration(
+                hintText:
+                    'please_enter_number_above'.tr, // Hint for input field
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.number, // Set keyboard to number
+              autofocus: true,
+            ),
+          ],
+        ),
         actions: [
           TextButton(
             onPressed: () => Get.back(result: false),
             child: Text("cancel".tr),
           ),
           TextButton(
-            onPressed: () => Get.back(result: true),
+            onPressed: () {
+              // Check if the user entered the correct number
+              if (confirmationController.text == confirmationNumber) {
+                Get.back(result: true);
+              } else {
+                // Show an error message if confirmation is incorrect
+                showInfoSnackbar(title: 'error'.tr, icon: Icons.error);
+              }
+            },
             child: Text(
               "delete".tr,
               style: TextStyle(color: Colors.red),
@@ -204,6 +243,14 @@ class DataCtrl extends GetxController {
 
       showInfoSnackbar(title: "all_data_deleted".tr);
     }
+  }
+
+  /// Function to generate a random 6-digit positive number
+  String _generateRandomNumber() {
+    Random random = Random();
+    int number = 100000 +
+        random.nextInt(900000); // Generate a number between 100000 and 999999
+    return number.toString();
   }
 
   var selectedIds = <String>[].obs;
