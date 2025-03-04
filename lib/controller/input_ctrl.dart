@@ -1,3 +1,4 @@
+
 import 'package:get/get.dart';
 import 'package:hiki/data/models/cashflow_model.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,9 @@ class InputCtrl extends GetxController {
   Rx<int?> selectedItemIndex = Rx<int?>(null);
   final categoryToggleIndex = 0.obs;
   final savedAmountWithoutCommas = ''.obs;
+  final isEditMode = false.obs;
+
+  bool isDataAssigned = false; // Track if data is assigned
 
   @override
   void onInit() {
@@ -45,6 +49,28 @@ class InputCtrl extends GetxController {
     selectedCategory.value = categoryToggleIndex.value == 0
         ? IncomeCategory.values[index]
         : ExpenseCategory.values[index];
+  }
+
+  void assignDataOnEdit(CashFlow cashflow) {
+    if (!isDataAssigned) {
+      isEditMode.value = true; //used for autofocus in textfield of title
+      titleController.text = cashflow.title;
+      amountController.text = cashflow.amount.toStringAsFixed(0);
+      selectedDate.value = cashflow.date;
+      selectedCategory.value = cashflow.category;
+      categoryToggleIndex.value = cashflow.isIncome ? 0 : 1;
+      savedAmountWithoutCommas.value = amountController.text;
+
+      if (cashflow.isIncome) {
+        selectedItemIndex.value =
+            IncomeCategory.values.indexOf(cashflow.category as IncomeCategory);
+      } else {
+        selectedItemIndex.value = ExpenseCategory.values
+            .indexOf(cashflow.category as ExpenseCategory);
+      }
+      isDataAssigned = true; // Mark as assigned
+      // Update UI if necessary
+    }
   }
 
   // Disposes of the text controllers to release resources when the controller is no longer needed.

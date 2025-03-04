@@ -5,17 +5,48 @@ import 'package:get/get.dart';
 import 'package:hiki/controller/input_ctrl.dart';
 import 'package:hiki/controller/data_ctrl.dart';
 import 'package:hiki/core/colors_const.dart';
+import 'package:hiki/data/models/cashflow_model.dart';
 import 'package:hiki/screens/add_cashflow/widgets/categories.dart';
 import 'widgets/title_date_input.dart';
 
-class NewCashFlow extends StatelessWidget {
-  NewCashFlow({super.key});
+class AddCashflowScreen extends StatelessWidget {
+  AddCashflowScreen({super.key, this.cashflow});
 
+  final CashFlow? cashflow;
   final DataCtrl dataCtrl = Get.find();
-  final inputCtrl = Get.put(InputCtrl());
+  final InputCtrl inputCtrl = Get.put(InputCtrl()); // Pass `cashflow`
+
+  void _submitCashflow() {
+    if (cashflow != null) {
+      log("amount <====> ${inputCtrl.savedAmountWithoutCommas.value}");
+      dataCtrl.editCashflow(
+        id: cashflow!.id,
+        title: inputCtrl.titleController.text,
+        amount: inputCtrl.savedAmountWithoutCommas.value,
+        chosenDate: inputCtrl.selectedDate.value!,
+        chosenCategory: inputCtrl.selectedCategory.value,
+        isIncome: inputCtrl.categoryToggleIndex.value == 0,
+      );
+    } else {
+      dataCtrl.insertCashflow(
+        title: inputCtrl.titleController.text,
+        amount: inputCtrl.savedAmountWithoutCommas.value,
+        chosenDate: inputCtrl.selectedDate.value!,
+        chosenCategory: inputCtrl.selectedCategory.value,
+        isIncome: inputCtrl.categoryToggleIndex.value == 0,
+      );
+    }
+    log("_submitCashflow function done");
+  }
 
   @override
   Widget build(BuildContext context) {
+    log("Main add screen built");
+    //when editing a cashflow , assign all variable to show in editing ui
+    if (cashflow != null) {
+      inputCtrl.assignDataOnEdit(cashflow!);
+    }
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -89,13 +120,7 @@ class NewCashFlow extends StatelessWidget {
                     () => ElevatedButton(
                       onPressed: () {
                         log("title: ${inputCtrl.titleController.text}, amount: ${inputCtrl.savedAmountWithoutCommas.value}, chosenDate: ${inputCtrl.selectedDate.value!}, chosenCategory: ${inputCtrl.selectedCategory.value}, isIncome: ${inputCtrl.categoryToggleIndex.value == 0},");
-                        dataCtrl.insertCashflow(
-                          title: inputCtrl.titleController.text,
-                          amount: inputCtrl.savedAmountWithoutCommas.value,
-                          chosenDate: inputCtrl.selectedDate.value!,
-                          chosenCategory: inputCtrl.selectedCategory.value,
-                          isIncome: inputCtrl.categoryToggleIndex.value == 0,
-                        );
+                        _submitCashflow();
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor:

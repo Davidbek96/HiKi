@@ -5,27 +5,33 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:in_app_update/in_app_update.dart';
 
-class UpdateCtrl extends GetxController {
-  final RxBool isUpdateAvailable = false.obs;
-  final RxBool flexibleUpdateAvailable = false.obs;
+class AppUpdateCtrl extends GetxController {
+  // Flags to track update availability
+  bool isUpdateAvailable = false;
+  bool flexibleUpdateAvailable = false;
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
-    await checkForUpdate();
+    // Ensure update check runs after the UI is built
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      checkForUpdate();
+    });
   }
 
+  // Checks for available app updates
   Future<void> checkForUpdate() async {
     try {
-      AppUpdateInfo updateInfo = await InAppUpdate.checkForUpdate();
-
+      final updateInfo = await InAppUpdate.checkForUpdate();
       if (updateInfo.updateAvailability == UpdateAvailability.updateAvailable) {
-        isUpdateAvailable.value = true;
+        isUpdateAvailable = true;
 
         if (updateInfo.immediateUpdateAllowed) {
+          // Show mandatory update dialog
           showUpdateDialog(forceUpdate: true);
         } else if (updateInfo.flexibleUpdateAllowed) {
-          flexibleUpdateAvailable.value = true;
+          flexibleUpdateAvailable = true;
+          // Show optional update dialog
           showUpdateDialog(forceUpdate: false);
         }
       }
@@ -34,15 +40,15 @@ class UpdateCtrl extends GetxController {
     }
   }
 
+  // Displays update prompt dialog
   void showUpdateDialog({required bool forceUpdate}) {
     Get.defaultDialog(
-      titlePadding: EdgeInsetsDirectional.all(30),
       title: "update_available".tr,
       content: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
         child: Text("new_version_available".tr),
       ),
-      barrierDismissible: !forceUpdate, // Force update if immediate is required
+      barrierDismissible: !forceUpdate, // Prevent dismissing if forced update
       actions: [
         if (!forceUpdate)
           TextButton(
@@ -50,20 +56,16 @@ class UpdateCtrl extends GetxController {
             child: Text("later".tr),
           ),
         ElevatedButton(
-          onPressed: () {
-            if (forceUpdate) {
-              startImmediateUpdate();
-            } else {
-              startFlexibleUpdate();
-            }
-          },
+          onPressed: () =>
+              forceUpdate ? startImmediateUpdate() : startFlexibleUpdate(),
           child: Text("update_now".tr),
         ),
       ],
     );
   }
 
-  void startImmediateUpdate() async {
+  // Starts an immediate update (requires app restart)
+  Future<void> startImmediateUpdate() async {
     try {
       await InAppUpdate.performImmediateUpdate();
     } catch (e) {
@@ -71,28 +73,25 @@ class UpdateCtrl extends GetxController {
     }
   }
 
-  void startFlexibleUpdate() async {
+  // Starts a flexible update (allows user to continue using the app)
+  Future<void> startFlexibleUpdate() async {
     try {
       await InAppUpdate.startFlexibleUpdate();
-      // Show restart dialog after flexible update is completed
+      // Prompt user to restart after update
       showRestartDialog();
     } catch (e) {
       log("Flexible update failed: $e");
     }
   }
 
+  // Shows restart prompt after a flexible update
   void showRestartDialog() {
     Get.defaultDialog(
-      titlePadding: EdgeInsets.all(30),
-      contentPadding: EdgeInsets.symmetric(horizontal: 30),
-      title: "warning".tr, // Translated restart message
+      title: "warning".tr,
       content: Text("restart_prompt".tr),
       actions: [
         ElevatedButton(
-          onPressed: () {
-            // Perform restart logic here
-            exit(1);
-          },
+          onPressed: () => exit(1), // Forces app restart
           child: Text("update_now".tr),
         ),
         TextButton(
@@ -103,12 +102,10 @@ class UpdateCtrl extends GetxController {
     );
   }
 
+  // Restarts the app (useful after updates)
   void restartApp() {
-    // Close the app completely
     SystemNavigator.pop(); // Close the app
-
-    // Reset GetX state and controllers
-    Get.deleteAll(); // Delete all controllers and state
-    Get.reset(); // Reset all GetX states
+    Get.deleteAll(); // Clear GetX controllers
+    Get.reset(); // Reset application state
   }
 }

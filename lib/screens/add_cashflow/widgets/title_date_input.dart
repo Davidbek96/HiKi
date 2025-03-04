@@ -26,11 +26,12 @@ class TitleDateInput extends StatelessWidget {
       () => Column(
         children: [
           TextField(
+            autofocus: ctr.isEditMode.value,
             onTapOutside: (event) {
               FocusScope.of(context).unfocus();
             },
             controller: ctr.titleController,
-            maxLength: 50,
+            maxLength: 60,
             decoration: InputDecoration(
               labelText: ctr.categoryToggleIndex.value == 0
                   ? 'income_name'.tr
@@ -70,9 +71,12 @@ class TitleDateInput extends StatelessWidget {
                       ctr.amountController.text = '';
                       return;
                     }
+                    log('value of emaunt controller: ${ctr.amountController.text}');
+                    log('value of value: $value');
 
                     // Remove commas for saving or calculations
                     String valueWithoutCommas = value.replaceAll(',', '');
+                    log('value of valueWithoutCommas: $valueWithoutCommas');
 
                     // Format the value with commas for display
                     final formattedValue = numberFormatter

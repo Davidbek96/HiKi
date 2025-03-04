@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:hiki/data/models/cashflow_model.dart';
 
@@ -58,6 +60,7 @@ class DatabaseHelper {
   // Adds a new cashflow record (income or expense) to the database.
   // If there's a conflict (e.g., duplicate ID), the existing record gets replaced.
   Future<int> insertCashflow(CashFlow cashflow) async {
+    log('Cashflow id while inserting database : ${cashflow.id}');
     final db = await DatabaseHelper.db();
     return await db.insert('cashflows', cashflow.toMap(),
         conflictAlgorithm: sql.ConflictAlgorithm.replace);
@@ -78,13 +81,18 @@ class DatabaseHelper {
   // Updates an existing cashflow record identified by its ID.
   // Allows changes to details like title, amount, date, category, or income status.
   // TODO - updateCashflow function is not used yet
-  Future<int> updateCashflow(int id, CashFlow cashflow) async {
+  Future<int> updateCashflow(String id, CashFlow cashflow) async {
+    log('Cashflow.id while updating in database  : ${cashflow.id}');
+    log('String id while updating in database  : $id');
     final db = await DatabaseHelper.db();
-    return await db.update(
+    final updateResult = await db.update(
       'cashflows',
       cashflow.toMap(),
       where: 'id = ?',
       whereArgs: [id],
     );
+
+    log('Update in database result : $updateResult');
+    return updateResult;
   }
 }

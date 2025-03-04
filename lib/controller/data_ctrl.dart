@@ -44,10 +44,13 @@ class DataCtrl extends GetxController {
   /// **Fetch all cashflows from the database**
   Future<void> fetchCashflows() async {
     isLoading.value = true;
-    final data = await _dbHelper.fetchCashflows();
-    cashflows.assignAll(data);
-    updateIncomeExpenseAmount(cashflows);
-    isLoading.value = false;
+    try {
+      final data = await _dbHelper.fetchCashflows();
+      cashflows.assignAll(data);
+      updateIncomeExpenseAmount(cashflows);
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   /// **Update total income, expenses, and balance**
@@ -145,6 +148,54 @@ class DataCtrl extends GetxController {
     update();
 
     await _dbHelper.insertCashflow(newCashflow);
+    Get.back();
+  }
+
+  /// Edit an existing cashflow
+  Future<void> editCashflow({
+    required String id,
+    required String title,
+    required String amount,
+    required DateTime chosenDate,
+    required Category? chosenCategory,
+    required bool isIncome,
+  }) async {
+    final enteredAmount = double.tryParse(amount);
+    final isAmountInvalid = enteredAmount == null || enteredAmount <= 0;
+    dev.log(
+        "Inside editCashflow:\n $title, $enteredAmount, $chosenDate, $chosenCategory, $isIncome#");
+
+    if (title.trim().isEmpty || isAmountInvalid || chosenCategory == null) {
+      Get.defaultDialog(
+        title: 'warning'.tr,
+        middleText: 'please_enter_valid'.tr,
+        confirm:
+            TextButton(onPressed: () => Get.back(), child: Text('confirm'.tr)),
+      );
+      return;
+    }
+
+    final updatedCashflow = CashFlow(
+      id: id,
+      title: title,
+      amount: enteredAmount,
+      date: chosenDate,
+      category: chosenCategory,
+      isIncome: isIncome,
+    );
+    
+   
+      //Todo -remove
+      dev.log("cashflow id when inserting: $id type: ${id.runtimeType}");
+      await _dbHelper.updateCashflow(id, updatedCashflow);
+      int index = cashflows.indexWhere((c) => c.id == id).toInt();
+
+      cashflows[index] = updatedCashflow;
+      cashflows.sort((a, b) => b.date.compareTo(a.date));
+      updateIncomeExpenseAmount(cashflows);
+      update();
+    
+
     Get.back();
   }
 

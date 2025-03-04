@@ -67,14 +67,15 @@ const incomeCategoryIcons = {
 // Transaction class can now handle both types of categories (Expense and Income)
 class CashFlow {
   CashFlow({
+    String? id,
     required this.title,
     required this.amount,
     required this.date,
     required this.category,
     required this.isIncome,
-  }) : id = uuid.v4();
+  }) : id = id ?? uuid.v4(); // If id is not available generate a new id
 
-  String id;
+  final String id;
   final String title;
   final double amount;
   final DateTime date;
@@ -98,7 +99,7 @@ class CashFlow {
     };
   }
 
-  // Convert a Map from the database to a Transaction object
+  // Convert a Map from the database to a Cashflow object
   // ..id = map['id'] => it is used  to assign the id after the CashFlow object has been created.
   // It is needed to assign id from database. Otherwise new id will be assigned using uuid
   static CashFlow fromMap(Map<String, dynamic> map) {
@@ -114,7 +115,8 @@ class CashFlow {
               (e) => e.toString() == map['category'],
             ),
       isIncome: map['isIncome'] == 1,
-    )..id = map['id'];
+      id: map['id'],
+    );
   }
 }
 

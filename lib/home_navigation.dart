@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:hiki/controller/data_ctrl.dart';
-import 'package:hiki/controller/update_ctrl.dart';
+import 'package:hiki/controller/app_update_ctrl.dart';
 import 'package:hiki/screens/add_cashflow/add_screen.dart';
 import 'package:hiki/screens/report/report_screen.dart';
 import 'package:hiki/screens/home/main_screen.dart';
@@ -13,7 +13,8 @@ class HomeNavigation extends StatelessWidget {
   HomeNavigation({super.key});
 
   final DataCtrl c = Get.put(DataCtrl());
-  final UpdateCtrl updateCtrl = Get.put(UpdateCtrl());
+
+  final AppUpdateCtrl updateCtrl = Get.put(AppUpdateCtrl());
   final _navigationBarIndex = 0.obs;
 
   // List of pages for the BottomNavigationBar
@@ -34,7 +35,7 @@ class HomeNavigation extends StatelessWidget {
             ? null
             : FloatingActionButton(
                 onPressed: () async {
-                  await Get.to(() => NewCashFlow());
+                  await Get.to(() => AddCashflowScreen());
                   c.cancelSelection();
                   _navigationBarIndex.value = 0;
                   c.filterPeriod.value =

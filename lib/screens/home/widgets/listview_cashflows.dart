@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hiki/controller/data_ctrl.dart';
 import 'package:hiki/data/models/cashflow_model.dart';
+import 'package:hiki/screens/add_cashflow/add_screen.dart';
 import 'package:hiki/screens/home/widgets/list_item.dart';
 
 class ListeviewCashflows extends StatelessWidget {
@@ -26,14 +27,17 @@ class ListeviewCashflows extends StatelessWidget {
             final isSelected = c.selectedIds.contains(cashflow.id);
 
             if (c.isSelectionMode.value) {
-              return GestureDetector(
-                onLongPress: () => c.toggleSelection(cashflow.id),
-                onTap: () => c.toggleSelection(cashflow.id),
-                child: TransactionItem(
-                  transaction: cashflow,
-                  index: index,
-                  isSelected: isSelected,
-                  c: c,
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                child: GestureDetector(
+                  onLongPress: () => c.toggleSelection(cashflow.id),
+                  onTap: () => c.toggleSelection(cashflow.id),
+                  child: TransactionItem(
+                    transaction: cashflow,
+                    index: index,
+                    isSelected: isSelected,
+                    c: c,
+                  ),
                 ),
               );
             } else {
@@ -46,14 +50,16 @@ class ListeviewCashflows extends StatelessWidget {
                   startActionPane: null,
                   endActionPane: ActionPane(
                     motion: const DrawerMotion(), // Smooth sliding motion
-                    extentRatio: 0.6, // Takes half of the item width
+                    extentRatio: 0.5, // Takes half of the item width
                     children: [
                       // Edit Button
                       SlidableAction(
                         onPressed: (context) {
-                          //Todo - edit option
-                          //c.editCashflow(cashflow);
+                          Get.to(
+                            () => AddCashflowScreen(cashflow: cashflow),
+                          );
                         },
+                        padding: EdgeInsets.symmetric(horizontal: 8),
                         backgroundColor: Colors.blue.shade300,
                         foregroundColor: Colors.white,
                         icon: Icons.edit,
@@ -62,6 +68,7 @@ class ListeviewCashflows extends StatelessWidget {
 
                       // Delete Button
                       SlidableAction(
+                        padding: EdgeInsets.symmetric(horizontal: 8),
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(8),
                           bottomRight: Radius.circular(8),
