@@ -53,7 +53,7 @@ class DataCtrl extends GetxController {
     }
   }
 
-  /// **Update total income, expenses, and balance**
+  /// **Update sum of all incomes, sum of all expenses and current balance**
   void updateIncomeExpenseAmount(List<CashFlow> currentCashflows) {
     totalIncomes.value = currentCashflows
         .where((transaction) => transaction.isIncome)
@@ -66,7 +66,7 @@ class DataCtrl extends GetxController {
     currentBalance.value = totalIncomes.value - totalExpenses.value;
   }
 
-  /// **Get filtered cashflows based on selected period and type**
+  /// **Get filtered cashflows based on selected period and type (today/this week, this year) **
   List<CashFlow> get filteredCashflows {
     List<CashFlow> filteredList = [];
     DateTime now = DateTime.now();
@@ -103,7 +103,7 @@ class DataCtrl extends GetxController {
     return filteredList;
   }
 
-  /// **Apply filters and update UI**
+  /// **Apply filters and update UI - push filteredCashflows to get new value**
   void applyFilters(String period, String type) async {
     filterPeriod.value = period;
     filterType.value = type;
@@ -253,14 +253,7 @@ class DataCtrl extends GetxController {
     }
   }
 
-  /// Function to generate a random 6-digit positive number
-  String _generateRandomNumber() {
-    Random random = Random();
-    int number = 100000 +
-        random.nextInt(900000); // Generate a number between 100000 and 999999
-    return number.toString();
-  }
-
+  /// **Multiple select and delete operations**
   var selectedIds = <String>[].obs;
   var isSelectionMode = false.obs;
 
@@ -279,6 +272,7 @@ class DataCtrl extends GetxController {
     isSelectionMode.value = false;
   }
 
+  /// **Delete selected multiple cashflows at once**
   void deleteSelectedCashflows() async {
     if (selectedIds.isEmpty) return;
     Get.closeCurrentSnackbar();
@@ -306,5 +300,13 @@ class DataCtrl extends GetxController {
         Get.closeCurrentSnackbar();
       },
     );
+  }
+
+  /// ** Function to generate a random 6-digit positive number**
+  String _generateRandomNumber() {
+    Random random = Random();
+    int number = 100000 +
+        random.nextInt(900000); // Generate a number between 100000 and 999999
+    return number.toString();
   }
 }
