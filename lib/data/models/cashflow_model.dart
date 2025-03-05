@@ -23,6 +23,9 @@ enum ExpenseCategory implements Category {
   work,
   doctor,
   personal,
+  payback,
+  travel,
+  sport,
   others
 }
 
@@ -36,6 +39,9 @@ enum IncomeCategory implements Category {
   business,
   trade,
   reward,
+  debts,
+  pension,
+  savings,
   others
 }
 
@@ -49,7 +55,10 @@ const expenseCategoryIcons = {
   ExpenseCategory.work: Icons.work,
   ExpenseCategory.doctor: Icons.monitor_heart,
   ExpenseCategory.personal: Icons.person_3,
-  ExpenseCategory.others: Icons.category,
+  ExpenseCategory.payback: Icons.handshake_rounded,
+  ExpenseCategory.travel: Icons.airplanemode_active_rounded,
+  ExpenseCategory.sport: Icons.sports_soccer,
+  ExpenseCategory.others: Icons.dashboard_customize,
 };
 
 const incomeCategoryIcons = {
@@ -59,8 +68,11 @@ const incomeCategoryIcons = {
   IncomeCategory.service: Icons.construction,
   IncomeCategory.rent: Icons.home,
   IncomeCategory.business: Icons.business_center,
-  IncomeCategory.trade: Icons.savings,
+  IncomeCategory.trade: Icons.monetization_on,
   IncomeCategory.reward: Icons.emoji_events,
+  IncomeCategory.debts: Icons.money,
+  IncomeCategory.pension: Icons.account_balance_outlined,
+  IncomeCategory.savings: Icons.account_balance_wallet,
   IncomeCategory.others: Icons.category,
 };
 

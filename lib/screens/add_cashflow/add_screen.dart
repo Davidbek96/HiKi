@@ -97,7 +97,7 @@ class AddCashflowScreen extends StatelessWidget {
               TitleDateInput(),
               const SizedBox(height: 15),
               Categories(),
-              const SizedBox(height: 15),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
