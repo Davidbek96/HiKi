@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 import 'package:hiki/data/models/cashflow_model.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +48,7 @@ class InputCtrl extends GetxController {
     selectedCategory.value = categoryToggleIndex.value == 0
         ? IncomeCategory.values[index]
         : ExpenseCategory.values[index];
+    update();
   }
 
   void assignDataOnEdit(CashFlow cashflow) {

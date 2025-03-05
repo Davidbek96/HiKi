@@ -13,6 +13,7 @@ abstract class Category {
   const Category();
 }
 
+//**DON'T Change category names to avoid database crash */
 //Enum for Expense Categories
 enum ExpenseCategory implements Category {
   food,
