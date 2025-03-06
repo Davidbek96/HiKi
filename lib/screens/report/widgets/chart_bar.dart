@@ -19,12 +19,14 @@ class ChartBar extends StatelessWidget {
   final Category category;
   final bool isIncome;
 
+  /// Formats `bucketAmount` as a string with thousand separators(0,000) and
+  /// shortens if it is too long.
   String get bucketAmountAsString {
     var amountAsString = bucketAmount.toInt() == 0
         ? '0.00'
         : NumberFormat('#,###').format(bucketAmount);
-    amountAsString = (amountAsString.length > 7
-        ? '${amountAsString.substring(0, 8)}..'
+    amountAsString = (amountAsString.length > 11
+        ? '${amountAsString.substring(0, 11)}..'
         : amountAsString);
     return amountAsString;
   }

@@ -71,9 +71,9 @@ class _ReportScreenState extends State<ReportScreen> {
                   isIncome: reportInfo.isIncomeReport,
                   chartTitle:
                       index == 0 ? 'total_income'.tr : 'total_expense'.tr,
-                  maxBucket: reportInfo.maxBucketInBuckets,
-                  buckets: reportInfo.categorizedBuckets,
-                  sortedBuckets: reportInfo.sortedBuckets,
+                  maxBucket: reportInfo.maxBucketValue,
+                  buckets: reportInfo.filteredBuckets,
+                  sortedBuckets: reportInfo.maxToMinBuckets,
                   isDarkMode: isDarkMode,
                   totalBucketsAmount: reportInfo.allBucketsAmount!,
                 );

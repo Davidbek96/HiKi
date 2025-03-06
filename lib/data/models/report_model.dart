@@ -19,7 +19,7 @@ class ReportInfo {
 
   //categorize all incomes into buckets and save it as a list
   //or categorize all expenses into buckets and save it as a list
-  List<TransactionBucket> get categorizedBuckets {
+  List<TransactionBucket> get filteredBuckets {
     List<TransactionBucket> buckets = [];
 
     if (isIncomeReport) {
@@ -36,9 +36,9 @@ class ReportInfo {
     return buckets;
   }
 
-  double get maxBucketInBuckets {
+  double get maxBucketValue {
     double maxBucket = 0;
-    for (final bucket in categorizedBuckets) {
+    for (final bucket in filteredBuckets) {
       if (bucket.totalAmount > maxBucket) {
         maxBucket = bucket.totalAmount;
       }
@@ -47,8 +47,8 @@ class ReportInfo {
   }
 
   //Sorting buckets by total expenses in the list big -> small
-  List<TransactionBucket> get sortedBuckets {
-    List<TransactionBucket> newBuckets = categorizedBuckets;
+  List<TransactionBucket> get maxToMinBuckets {
+    List<TransactionBucket> newBuckets = filteredBuckets;
 
     newBuckets.sort((b, a) => a.totalAmount.compareTo(b.totalAmount));
 
@@ -58,7 +58,7 @@ class ReportInfo {
   //get overall expenses of all buckets
   double? get allBucketsAmount {
     double sum = 0;
-    for (var bucket in sortedBuckets) {
+    for (var bucket in maxToMinBuckets) {
       sum += bucket.totalAmount;
     }
     return sum;
