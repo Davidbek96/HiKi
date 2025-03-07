@@ -49,11 +49,7 @@ class SettingsCtrl extends GetxController {
   /// Loads and sets the theme mode based on stored preferences.
   void _loadThemeMode() {
     String? savedTheme = storage.read('theme_mode');
-    themeMode.value = savedTheme == 'dark'
-        ? ThemeMode.dark
-        : savedTheme == 'light'
-            ? ThemeMode.light
-            : (Get.isPlatformDarkMode ? ThemeMode.dark : ThemeMode.light);
+    themeMode.value = savedTheme == 'dark' ? ThemeMode.dark : ThemeMode.light;
   }
 
   /// Toggles between light and dark theme and updates the app theme.

@@ -11,19 +11,19 @@ class UpgraderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UpgradeAlert(
-      shouldPopScope: () => true,
+      shouldPopScope: () => true, //android back button to remove dialog
       showReleaseNotes: false,
       showIgnore: false,
       upgrader: Upgrader(
         durationUntilAlertAgain: const Duration(days: 1),
-        messages: EnglishUpgradeMessages(),
+        messages: CustomMessages(),
       ),
       child: MainScreen(),
     );
   }
 }
 
-class EnglishUpgradeMessages extends UpgraderMessages {
+class CustomMessages extends UpgraderMessages {
   /// Override the message function to provide custom language localization.
   @override
   String message(UpgraderMessage messageKey) {
