@@ -9,6 +9,7 @@ import 'controller/settings_ctrl.dart';
 import 'core/themes.dart';
 import 'localization/app_localization.dart';
 
+
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
@@ -21,7 +22,7 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  // Enable edge-to-edge display
+  //Enable edge-to-edge display
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     systemNavigationBarColor:
         Colors.transparent, // Makes the bottom nav transparent
@@ -44,3 +45,4 @@ void main() async {
     ),
   );
 }
+

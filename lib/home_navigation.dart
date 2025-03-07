@@ -1,10 +1,11 @@
 import 'dart:developer';
 
 import 'package:hiki/controller/data_ctrl.dart';
-import 'package:hiki/controller/app_update_ctrl.dart';
+
 import 'package:hiki/screens/add_cashflow/add_screen.dart';
+import 'package:hiki/screens/home/upgrader.dart';
 import 'package:hiki/screens/report/report_screen.dart';
-import 'package:hiki/screens/home/main_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hiki/screens/settings/settings_screen.dart';
@@ -14,14 +15,13 @@ class HomeNavigation extends StatelessWidget {
 
   final DataCtrl c = Get.put(DataCtrl());
 
-  final AppUpdateCtrl updateCtrl = Get.put(AppUpdateCtrl());
   final _navigationBarIndex = 0.obs;
 
   // List of pages for the BottomNavigationBar
   final List<Widget> pages = [
-    MainScreen(), // Page where you want FAB to appear
-    ReportScreen(), // Page where FAB should be hidden
-    SettingsScreen(), // Page where FAB should be hidden
+    UpgraderWidget(), //MainScreen is located in Upgrader
+    ReportScreen(),
+    SettingsScreen(),
   ];
 
   @override

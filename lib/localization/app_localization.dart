@@ -118,6 +118,11 @@ class AppLocalization extends Translations {
           'edit': 'Edit',
           'error': 'Error',
           'please_enter_number_above': 'Please enter a number above',
+          'succesfully_updated': "Successfully updated!",
+          'app_will_close_reopen': "App will be closed now. Please reopen it.",
+          'ok': "OK",
+          "update_prompt":
+              "It doesn't effect your data, only new features will be added or issues will be fixed."
         },
         'uz': {
           'home': "Asosiy",
@@ -235,6 +240,11 @@ class AppLocalization extends Translations {
           'edit': 'Tahrirlash',
           'error': 'Xatolik',
           'please_enter_number_above': 'Yuqoridagi raqamni kiriting',
+          'succesfully_updated': "Muvaffaqiyatli yangilandi!",
+          'app_will_close_reopen': "Ilova yopiladi. Iltimos, uni qayta oching.",
+          'ok': "OK",
+          "update_prompt":
+              "Bu ma'lumotlaringizga ta'sir qilmaydi, faqat yangi imkoniyatlar qo'shiladi yoki kamchiliklar to'g'irlanadi."
         },
         'kr': {
           'home': "홈",
@@ -345,6 +355,7 @@ class AppLocalization extends Translations {
           'edit': '편집',
           'error': '오류',
           'please_enter_number_above': '위의 숫자를 입력하세요',
+          "update_prompt": "이는 데이터에 영향을 주지 않으며, 새로운 기능이 추가되거나 문제가 수정됩니다.",
         },
         'ru': {
           'home': "Главная",
@@ -460,6 +471,11 @@ class AppLocalization extends Translations {
           'edit': 'Редактировать',
           'error': 'Ошибка',
           'please_enter_number_above': 'Введите число выше',
+          'succesfully_updated': "Успешно обновлено!",
+          'app_will_close_reopen':
+              "Приложение сейчас закроется. Пожалуйста, откройте его снова.",
+          'ok': "OK",
+          "update_prompt": "Это не повлияет на ваши данные, будут добавлены только новые функции или исправлены ошибки."
         },
       };
 }

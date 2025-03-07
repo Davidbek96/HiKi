@@ -5,7 +5,7 @@ import 'package:get_storage/get_storage.dart';
 class SettingsCtrl extends GetxController {
   final GetStorage storage = GetStorage();
 
-  Rx<ThemeMode> themeMode = ThemeMode.system.obs;
+  Rx<ThemeMode> themeMode = ThemeMode.light.obs;
   Rx<Locale> currentLocale = Locale('uz').obs;
   RxString currency = 'UZS'.obs;
   final List<String> availableCurrencies = ['USD', 'UZS', 'RUB', 'KRW'];
