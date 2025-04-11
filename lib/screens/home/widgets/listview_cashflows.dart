@@ -18,6 +18,8 @@ class ListeviewCashflows extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLargeScreen = MediaQuery.of(context).size.width > 600;
+
     return Expanded(
       child: SlidableAutoCloseBehavior(
         child: ListView.builder(
@@ -50,7 +52,9 @@ class ListeviewCashflows extends StatelessWidget {
                   startActionPane: null,
                   endActionPane: ActionPane(
                     motion: const DrawerMotion(), // Smooth sliding motion
-                    extentRatio: 0.5, // Takes half of the item width
+                    extentRatio: isLargeScreen
+                        ? 0.35
+                        : 0.5, // Takes half of the item width
                     children: [
                       // Edit Button
                       SlidableAction(

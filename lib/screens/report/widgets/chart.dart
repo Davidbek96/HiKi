@@ -30,12 +30,15 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isScrenLarge = screenWidth > 800;
 
     return Card(
       child: Padding(
         padding: EdgeInsets.all(8.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,7 +68,9 @@ class Chart extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 30),
-                width: sortedBuckets.length * 70, // Adjust the width as needed
+                width: isScrenLarge
+                    ? sortedBuckets.length * 140
+                    : sortedBuckets.length * 70, // Adjust the width as needed
                 height: screenHeight / 3,
                 child: Column(
                   children: [

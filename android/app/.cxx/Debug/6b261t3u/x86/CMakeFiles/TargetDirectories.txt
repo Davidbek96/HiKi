@@ -1,0 +1,2 @@
+C:/Development/projects/Playstore/HiKi/hiki/android/app/.cxx/Debug/6b261t3u/x86/CMakeFiles/edit_cache.dir
+C:/Development/projects/Playstore/HiKi/hiki/android/app/.cxx/Debug/6b261t3u/x86/CMakeFiles/rebuild_cache.dir

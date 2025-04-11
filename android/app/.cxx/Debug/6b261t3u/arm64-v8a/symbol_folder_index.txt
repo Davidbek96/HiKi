@@ -1,0 +1,1 @@
+C:\Development\projects\Playstore\HiKi\hiki\build\app\intermediates\cxx\Debug\6b261t3u\obj\arm64-v8a
