@@ -2,109 +2,151 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
-class AboutPage extends StatelessWidget {
+class AboutPage extends StatefulWidget {
   const AboutPage({super.key});
+
+  @override
+  State<AboutPage> createState() => _AboutPageState();
+}
+
+class _AboutPageState extends State<AboutPage> {
+  String appVersion = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAppVersion();
+  }
+
+  Future<void> _loadAppVersion() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() {
+      appVersion = "${info.version} (${info.buildNumber})";
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final privacyPolicyUrl =
         'https://www.termsfeed.com/live/45286b50-054e-4bb7-9553-d67a7ca859da';
+
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-        title: Text(
-          "about_app".tr, // Using key for "Ilova haqida"
-          style: TextStyle(
-            fontSize: 18,
-          ),
-        ),
+        title: Text("about_app".tr, style: const TextStyle(fontSize: 18)),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // App Info Section
-              _buildSectionTitle("app_info".tr),
-              const SizedBox(height: 10),
-              Text(
-                'app_description'.tr,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20),
-
-              // Developer Info Section
-              _buildSectionTitle("developer".tr),
-              const SizedBox(height: 10),
-              Text(
-                "developer_info".tr,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20),
-
-              // Features Section
-              _buildSectionTitle("features".tr),
-              const SizedBox(height: 10),
-              _buildFeatureList([
-                "feature_1".tr,
-                "feature_2".tr,
-                "feature_3".tr,
-                "feature_4".tr,
-                "feature_5".tr,
-              ]),
-              const SizedBox(height: 20),
-
-              // Contact Info Section
-              _buildSectionTitle("contact".tr),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Icon(Icons.email,
-                      size: 20, color: Theme.of(context).colorScheme.onSurface),
-                  const SizedBox(width: 10),
-                  Flexible(
-                    child: Text(
-                      "dovudbek.developer@gmail.com",
-                      style: Theme.of(context).textTheme.bodyMedium!,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      softWrap: false,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // App Info Section
+                    _buildSectionTitle("app_info".tr),
+                    const SizedBox(height: 10),
+                    Text(
+                      'app_description'.tr,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        Clipboard.setData(
-                          ClipboardData(
-                            text: "dovudbek.developer@gmail.com",
+                    const SizedBox(height: 20),
+
+                    // Developer Info Section
+                    _buildSectionTitle("developer".tr),
+                    const SizedBox(height: 10),
+                    Text(
+                      "developer_info".tr,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    const SizedBox(height: 20),
+
+                    // Features Section
+                    _buildSectionTitle("features".tr),
+                    const SizedBox(height: 10),
+                    _buildFeatureList([
+                      "feature_1".tr,
+                      "feature_2".tr,
+                      "feature_3".tr,
+                      "feature_4".tr,
+                      "feature_5".tr,
+                    ]),
+                    const SizedBox(height: 20),
+
+                    // Contact Info Section
+                    _buildSectionTitle("contact".tr),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.email,
+                          size: 20,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                        const SizedBox(width: 10),
+                        Flexible(
+                          child: Text(
+                            "dovudbek.developer@gmail.com",
+                            style: Theme.of(context).textTheme.bodyMedium!,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            softWrap: false,
                           ),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("email_copied".tr)),
-                        );
-                      },
-                      icon: Icon(Icons.copy)),
-                ],
-              ),
-              Row(
-                children: [
-                  Icon(Icons.privacy_tip,
-                      color: Theme.of(context).colorScheme.onSurface),
-                  const SizedBox(width: 10),
-                  Text('Privacy Policy'),
-                  IconButton(
-                    onPressed: () => _launchURL(privacyPolicyUrl),
-                    icon: Icon(
-                      Icons.launch,
-                      color: Colors.blueAccent,
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Clipboard.setData(
+                              const ClipboardData(
+                                text: "dovudbek.developer@gmail.com",
+                              ),
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("email_copied".tr)),
+                            );
+                          },
+                          icon: const Icon(Icons.copy),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.privacy_tip,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                        const SizedBox(width: 10),
+                        const Text('Privacy Policy'),
+                        IconButton(
+                          onPressed: () => _launchURL(privacyPolicyUrl),
+                          icon: const Icon(
+                            Icons.launch,
+                            color: Colors.blueAccent,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
+            ),
+
+            // Footer with version
+            if (appVersion.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12, top: 4),
+                child: Text(
+                  "${"version".tr} $appVersion",
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Colors.grey,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ),
+          ],
         ),
       ),
     );
@@ -127,10 +169,7 @@ void _launchURL(String url) async {
 Widget _buildSectionTitle(String title) {
   return Text(
     title,
-    style: TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.w500,
-    ),
+    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
   );
 }
 
@@ -142,14 +181,14 @@ Widget _buildFeatureList(List<String> features) {
         .map(
           (feature) => Row(
             children: [
-              const Icon(Icons.check_circle_outline,
-                  size: 20, color: Colors.green),
+              const Icon(
+                Icons.check_circle_outline,
+                size: 20,
+                color: Colors.green,
+              ),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(
-                  feature,
-                  style: const TextStyle(fontSize: 14),
-                ),
+                child: Text(feature, style: const TextStyle(fontSize: 14)),
               ),
             ],
           ),

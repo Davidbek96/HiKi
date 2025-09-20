@@ -25,11 +25,8 @@ class Themes {
         fontSize: 16,
       ),
     ),
-    cardTheme: CardTheme(
-      margin: EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 6,
-      ),
+    cardTheme: CardThemeData(
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       color: Colors.white.withValues(alpha: 0.6),
       elevation: 0,
       shadowColor: Colors.transparent,
@@ -50,53 +47,44 @@ class Themes {
       ),
     ),
     textTheme: ThemeData().textTheme.copyWith(
-          headlineLarge: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: kColorScheme.tertiary,
-            fontSize: 30,
-          ),
-          labelLarge: const TextStyle(
-            color: Color.fromARGB(255, 59, 61, 62),
-          ),
-          displaySmall: TextStyle(
-            color: kColorScheme.onPrimary,
-            fontWeight: FontWeight.w500,
-            fontSize: 30,
-          ),
-          titleSmall: TextStyle(
-            color: kColorScheme.onPrimary,
-          ),
-          titleMedium: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: kColorScheme.onPrimary,
-          ),
-          titleLarge: TextStyle(
-            fontWeight: FontWeight.w500,
-            color: kColorScheme.inverseSurface.withAlpha(240),
-          ),
-          // bodySmall: TextStyle().copyWith(
-          //   color: Colors.black54,
-          // ),
-        ),
-    iconTheme: const IconThemeData().copyWith(
-      color: Colors.white,
+      headlineLarge: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: kColorScheme.tertiary,
+        fontSize: 30,
+      ),
+      labelLarge: const TextStyle(color: Color.fromARGB(255, 59, 61, 62)),
+      displaySmall: TextStyle(
+        color: kColorScheme.onPrimary,
+        fontWeight: FontWeight.w500,
+        fontSize: 30,
+      ),
+      titleSmall: TextStyle(color: kColorScheme.onPrimary),
+      titleMedium: TextStyle(
+        fontWeight: FontWeight.w600,
+        color: kColorScheme.onPrimary,
+      ),
+      titleLarge: TextStyle(
+        fontWeight: FontWeight.w500,
+        color: kColorScheme.inverseSurface.withAlpha(240),
+      ),
+      // bodySmall: TextStyle().copyWith(
+      //   color: Colors.black54,
+      // ),
     ),
+    iconTheme: const IconThemeData().copyWith(color: Colors.white),
   );
 
   ThemeData darkThemeData = ThemeData.dark().copyWith(
     colorScheme: kDarkColorScheme,
     textTheme: ThemeData.dark().textTheme.copyWith(
-          titleLarge: TextStyle(
-            color: kDarkColorScheme.onPrimaryContainer,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-    cardTheme: const CardTheme().copyWith(
-      color: kDarkColorScheme.surfaceContainer,
-      margin: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 8,
+      titleLarge: TextStyle(
+        color: kDarkColorScheme.onPrimaryContainer,
+        fontWeight: FontWeight.w500,
       ),
+    ),
+    cardTheme: const CardThemeData().copyWith(
+      color: kDarkColorScheme.surfaceContainer,
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -108,8 +96,6 @@ class Themes {
       shape: const StadiumBorder(), //make it circler
       iconSize: 30,
     ),
-    appBarTheme: AppBarTheme().copyWith(
-      backgroundColor: Colors.transparent,
-    ),
+    appBarTheme: AppBarTheme().copyWith(backgroundColor: Colors.transparent),
   );
 }

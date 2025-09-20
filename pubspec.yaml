@@ -16,10 +16,10 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.5+18
+version: 1.2.0+20
 
 environment:
-  sdk: ^3.6.2
+  sdk: ^3.9.2
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -30,21 +30,23 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_gradient_colors:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
-  uuid: 
-  intl: 
-  get: ^4.6.6
-  sqflite: ^2.4.1
-  path: ^1.9.0
+  flutter_gradient_colors: ^2.1.1
+  uuid: ^4.5.1
+  intl: ^0.20.2
+  get: ^4.7.2
+  sqflite: ^2.4.2
+  path: ^1.9.1
   get_storage: ^2.1.1
-  flutter_native_splash: ^2.4.4
-  url_launcher: ^6.3.1
-  flutter_slidable: ^4.0.0
-  upgrader: ^11.3.1
+  flutter_native_splash: ^2.4.6
+  url_launcher: ^6.3.2
+  flutter_slidable: ^4.0.1
+  upgrader: ^12.0.0
+  path_provider: ^2.1.5
+  package_info_plus: ^9.0.0
 
 flutter_native_splash:
   color: "#f3f4f6"
@@ -75,12 +77,10 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-  
-  assets:
-    - assets/ 
+
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
