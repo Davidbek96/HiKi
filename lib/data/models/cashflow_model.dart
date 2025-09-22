@@ -14,7 +14,8 @@ abstract class Category {
 }
 
 //**DON'T Change category names to avoid database crash */
-//Enum for Expense Categories
+//**DON'T Change category names to avoid database crash */
+//Enum for Expense Categories (24 total)
 enum ExpenseCategory implements Category {
   food,
   transport,
@@ -27,10 +28,20 @@ enum ExpenseCategory implements Category {
   payback,
   travel,
   sport,
-  others
+
+  // ✅ New categories (to reach 24)
+  entertainment,
+  charity,
+  phone,
+  internet,
+  pets,
+  beauty,
+  childcare,
+  tax,
+  others,
 }
 
-//Enum for Income Categories
+//Enum for Income Categories (24 total)
 enum IncomeCategory implements Category {
   salary,
   investment,
@@ -43,7 +54,14 @@ enum IncomeCategory implements Category {
   debts,
   pension,
   savings,
-  others
+
+  freelance,
+  bonus,
+  royalties,
+  inheritance,
+  lottery,
+  grants,
+  others,
 }
 
 //creating a Map with key (enum Category) and value (icons)
@@ -60,6 +78,16 @@ const expenseCategoryIcons = {
   ExpenseCategory.travel: Icons.airplanemode_active_rounded,
   ExpenseCategory.sport: Icons.sports_soccer,
   ExpenseCategory.others: Icons.dashboard_customize,
+
+  // ✅ New category icons
+  ExpenseCategory.entertainment: Icons.movie,
+  ExpenseCategory.charity: Icons.volunteer_activism,
+  ExpenseCategory.phone: Icons.phone_android,
+  ExpenseCategory.internet: Icons.wifi,
+  ExpenseCategory.pets: Icons.pets,
+  ExpenseCategory.beauty: Icons.brush,
+  ExpenseCategory.childcare: Icons.child_care,
+  ExpenseCategory.tax: Icons.receipt_long,
 };
 
 const incomeCategoryIcons = {
@@ -74,6 +102,14 @@ const incomeCategoryIcons = {
   IncomeCategory.debts: Icons.money,
   IncomeCategory.pension: Icons.account_balance_outlined,
   IncomeCategory.savings: Icons.account_balance_wallet,
+
+  // ✅ New category icons
+  IncomeCategory.freelance: Icons.laptop_mac,
+  IncomeCategory.bonus: Icons.add_card,
+  IncomeCategory.royalties: Icons.library_music,
+  IncomeCategory.inheritance: Icons.family_restroom,
+  IncomeCategory.lottery: Icons.casino,
+  IncomeCategory.grants: Icons.school,
   IncomeCategory.others: Icons.category,
 };
 
@@ -93,7 +129,7 @@ class CashFlow {
   final double amount;
   final DateTime date;
   final Category
-      category; // Can now accept both ExpenseCategory and IncomeCategory
+  category; // Can now accept both ExpenseCategory and IncomeCategory
   final bool isIncome;
 
   String get formattedDate {
@@ -135,16 +171,13 @@ class CashFlow {
 
 // A class to handle grouped transactions by category (Expense or Income)
 class TransactionBucket {
-  TransactionBucket({
-    required this.category,
-    required this.transactions,
-  });
+  TransactionBucket({required this.category, required this.transactions});
 
   // This constructor filters transactions by the given category
   TransactionBucket.forCategory(List<CashFlow> allTransactions, this.category)
-      : transactions = allTransactions
-            .where((transaction) => transaction.category == category)
-            .toList();
+    : transactions = allTransactions
+          .where((transaction) => transaction.category == category)
+          .toList();
 
   final Category category;
   final List<CashFlow> transactions;

@@ -7,24 +7,24 @@ import 'package:hiki/data/models/cashflow_model.dart';
 import 'package:hiki/core/colors_const.dart';
 
 class Categories extends StatelessWidget {
-  Categories({
-    super.key,
-  });
+  Categories({super.key});
 
   final InputCtrl c = Get.find();
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final isSmallScreen = screenWidth < 400;
+    final isSmallScreen = screenWidth < 420;
     final isMediumScreen = screenWidth < 760;
 
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
           border: Border.symmetric(
-            horizontal:
-                BorderSide(width: 2.5, color: Theme.of(context).highlightColor),
+            horizontal: BorderSide(
+              width: 2.5,
+              color: Theme.of(context).highlightColor,
+            ),
           ),
         ),
         child: Obx(
@@ -34,8 +34,8 @@ class Categories extends StatelessWidget {
               crossAxisCount: isSmallScreen
                   ? 3
                   : isMediumScreen
-                      ? 4
-                      : 6,
+                  ? 4
+                  : 6,
               mainAxisSpacing: isSmallScreen ? 5 : 10,
               crossAxisSpacing: isSmallScreen ? 10 : 8,
               childAspectRatio: 1.12,
@@ -56,8 +56,9 @@ class Categories extends StatelessWidget {
                       elevation: 2, // Controls the depth of the shadow
                       shadowColor: Colors.black26, // Customize the shadow color
                       shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(12), // Rounded corners
+                        borderRadius: BorderRadius.circular(
+                          12,
+                        ), // Rounded corners
                       ),
                       margin: const EdgeInsets.all(6),
                       child: Container(
@@ -65,12 +66,14 @@ class Categories extends StatelessWidget {
                           border: c.selectedItemIndex.value == index
                               ? null
                               : Border.all(
-                                  color:
-                                      Theme.of(context).colorScheme.surfaceDim,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.surfaceDim,
                                   width: 2.0, // Border width
                                 ),
                           borderRadius: BorderRadius.circular(
-                              12), // Match the card's rounded corners
+                            12,
+                          ), // Match the card's rounded corners
                           gradient: index == c.selectedItemIndex.value
                               ? LinearGradient(
                                   colors: c.categoryToggleIndex.value == 0
@@ -92,14 +95,14 @@ class Categories extends StatelessWidget {
                           children: [
                             Icon(
                               c.categoryToggleIndex.value == 0
-                                  ? incomeCategoryIcons[
-                                      IncomeCategory.values[index]]
-                                  : expenseCategoryIcons[
-                                      ExpenseCategory.values[index]],
+                                  ? incomeCategoryIcons[IncomeCategory
+                                        .values[index]]
+                                  : expenseCategoryIcons[ExpenseCategory
+                                        .values[index]],
                               color: index == c.selectedItemIndex.value
                                   ? Colors.white
-                                  : kGradientColors[
-                                      index % kGradientColors.length][0],
+                                  : kGradientColors[index %
+                                        kGradientColors.length][0],
                               //Theme.of(context).colorScheme.onSecondaryContainer,
                               size: 32,
                             ),
@@ -109,21 +112,19 @@ class Categories extends StatelessWidget {
                               child: Text(
                                 c.categoryToggleIndex.value == 0
                                     ? IncomeCategory.values[index].name.tr
-                                        .toUpperCase()
+                                          .toUpperCase()
                                     : ExpenseCategory.values[index].name.tr
-                                        .toUpperCase(),
+                                          .toUpperCase(),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
+                                style: Theme.of(context).textTheme.bodySmall!
                                     .copyWith(
                                       fontWeight: FontWeight.w500,
                                       color: index == c.selectedItemIndex.value
                                           ? Colors.white
-                                          : Theme.of(context)
-                                              .colorScheme
-                                              .onSurfaceVariant,
+                                          : Theme.of(
+                                              context,
+                                            ).colorScheme.onSurfaceVariant,
                                     ),
                               ),
                             ),
